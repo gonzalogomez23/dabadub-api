@@ -68,6 +68,7 @@ input:focus {
     background-color: #00a762;
 }
 .btn-delete {
+    margin-left: .3rem;
     background-color: #b72424;
 }
 
