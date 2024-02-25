@@ -16,8 +16,8 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v2
       
-    - name: Install Composer Dependencies
-      run: composer.phar install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+    # - name: Install Composer Dependencies
+    #   run: composer.phar install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
       
     - name: Directory Permissions
       run: chmod -R 777 storage bootstrap/cache
