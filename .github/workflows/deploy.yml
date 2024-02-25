@@ -28,6 +28,7 @@ jobs:
         host: ${{ secrets.SERVER_HOST }}
         username: ${{ secrets.SERVER_USERNAME }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
+        password: ${{ secrets.SSH_PRIVATE_PASSWORD }}
         script: |
           cd domains/${{ secrets.PROJECT_PATH }}
           git pull origin master
