@@ -1,1 +1,1 @@
-App realizada con React en el frontend y Laravel como API para el backend.
+App realizada con React en el frontend y Laravel como API para el backend. Cambio desde local
