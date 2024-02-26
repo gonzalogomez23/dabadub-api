@@ -1,1 +1,1 @@
-Proyecto realizado con React en el frontend y Laravel como API para el backend.
+Proyecto realizado con React en el frontend y Laravel como API para el backend. Cambio en local
