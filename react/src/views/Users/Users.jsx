@@ -1,7 +1,12 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import axiosClient from "../axios-client.js";
-import { useStateContext } from "../contexts/ContextProvider.jsx";
+import axiosClient from "../../axios-client.js";
+import { useStateContext } from "../../contexts/ContextProvider.jsx";
+import ButtonLink from "../../components/ButtonLink.jsx";
+import { PlusIcon } from '@heroicons/react/24/solid'
+
+// Styles
+import styles from 'views/Users/Users.module.css'
 
 export default function Users() {
 
@@ -39,19 +44,22 @@ export default function Users() {
 
     return (
     <>
-        <div style={{display:'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-            <h1>Users</h1>
-            <Link to="/users/new" className="btn-add">Add new</Link> 
+        <div className="flex justify-between items-end py-4">
+            <h1 className="text-3xl text-gray-800 font-bold font-headings px-2">Users</h1>
+            <ButtonLink to="/users/new" className="btn-add">
+                <PlusIcon className="size-5"/>
+                Add new
+            </ButtonLink> 
         </div>
-        <div className="card animate fadeInDown">
-            <table>
-                <thead>
+        <div className="border rounded-lg overflow-hidden">
+            <table className={`${styles['users-table']}`}>
+                <thead className="text-gray-800 bg-gray-100">
                     <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Create Date</th>
-                        <th>Actions</th>
+                        <th scope="col">ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Create Date</th>
+                        <th scope="col">Actions</th>
                     </tr>
                 </thead>
                 {loading &&
@@ -75,7 +83,6 @@ export default function Users() {
                                 <Link to={'/users/'+u.id} className="btn-edit">Edit</Link>
                                 <button onClick={en => onDelete(u)} className="btn-delete">Delete</button>
                             </td>
-                            <td></td>
                         </tr>
                     ))}
                 </tbody>
