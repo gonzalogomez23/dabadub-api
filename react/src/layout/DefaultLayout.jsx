@@ -32,19 +32,21 @@ export default function DefaultLayout() {
     }, [])
 
     return (
-        <div id="defaultLayout" className="flex w-full h-screen">
-            <aside className="w-full max-w-80 bg-gray-100 flex flex-col gap-6 border-e p-4">
-                <div className="flex items-center gap-2 py-2">
-                    <LogoEspendub color="var(--color-primary)" className="w-12"/>
-                    <h1 className="font-semibold text-primary text-2xl">Esp<span className="text-secondary">en</span>Dub</h1>
-                </div>
-                <div className="w-full flex flex-col gap-2">
-                    <AsideLink to="/dashboard">Dashboard</AsideLink>
-                    <AsideLink to="/users">Users</AsideLink>
+        <div id="defaultLayout" className="flex w-full h-screen p-4 gap-4">
+            <aside className="w-full max-w-80">
+                <div className="w-full h-full flex flex-col gap-6 border shadow-sm rounded-xl p-2">
+                    <div className="flex items-center gap-3 p-2">
+                        <LogoEspendub color="var(--color-primary)" className="w-10"/>
+                        <h1 className="text-primary font-headings font-medium text-3xl">daba<span className="font-bold">Dub</span></h1>
+                    </div>
+                    <div className="w-full flex flex-col gap-2">
+                        <AsideLink to="/dashboard">Dashboard</AsideLink>
+                        <AsideLink to="/users">Users</AsideLink>
+                    </div>
                 </div>
             </aside>
             <div className="content grow">
-                <header className="w-full border-b-2 border-emerald-900 flex items-center justify-between p-8">
+                <header className="w-full border shadow-sm rounded-xl flex items-center justify-between px-8 py-6">
                     <div>
                         Header
                     </div>

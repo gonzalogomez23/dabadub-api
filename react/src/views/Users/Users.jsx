@@ -44,8 +44,8 @@ export default function Users() {
 
     return (
     <>
-        <div className="flex justify-between items-end py-4">
-            <h1 className="text-3xl text-gray-800 font-bold font-headings px-2">Users</h1>
+        <div className="flex justify-between items-end py-6">
+            <h1 className="text-4xl text-gray-800 font-semibold font-headings px-2">Users</h1>
             <ButtonLink to="/users/new" className="btn-add">
                 <PlusIcon className="size-5"/>
                 Add new
@@ -74,7 +74,7 @@ export default function Users() {
                 {!loading &&
                 <tbody>
                     {users.map(u => (
-                        <tr>
+                        <tr key={u.id}>
                             <td>{u.id}</td>
                             <td>{u.name}</td>
                             <td>{u.email}</td>

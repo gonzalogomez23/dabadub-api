@@ -13,9 +13,10 @@ export default {
         // primary: 'rgb(var(--color-primary) / <alpha-value>)',
         primary: 'var(--color-primary)',
         secondary: 'var(--color-secondary)',
+        dark1: 'var(--color-dark1)',
       },
       fontFamily: {
-        headings: ["Montserrat", ...defaultTheme.fontFamily.sans],
+        headings: ["Outfit", ...defaultTheme.fontFamily.sans],
         sans: ["Inter", ...defaultTheme.fontFamily.sans],
       }
     },
