@@ -5,15 +5,15 @@ on:
     push:
       branches:
         - main
-    #   paths:
-    #     - 'domains/api.dabadub.com/**'
-    #     - '!domains/api.dabadub.com/react/**'
+      paths:
+        - 'domains/api.dabadub.com/**'
+        - '!domains/api.dabadub.com/react/**'
     pull_request:
       branches:
         - main
-    #   paths:
-    #     - 'domains/api.dabadub.com/**' 
-    #     - '!domains/api.dabadub.com/react/**' 
+      paths:
+        - 'domains/api.dabadub.com/**' 
+        - '!domains/api.dabadub.com/react/**' 
 
 # Authenticate to the the server via ssh and run our deployment script 
 jobs:
@@ -62,7 +62,6 @@ jobs:
             password: ${{ secrets.SSH_PRIVATE_PASSWORD }}
             port: ${{ secrets.SERVER_PORT }}
             script_stop: true
-            # script: "cd /var/www/html && ./.scripts/deploy.sh"
             script: |
               cd ${{ secrets.PROJECT_PATH }}
               git pull origin main
