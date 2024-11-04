@@ -29,23 +29,23 @@ jobs:
 
     - name: Install dependencies and build
       run: |
-        cd react # Cambia esto a la ruta del frontend en tu proyecto
+        cd react
         npm install
         npm run build
 
-    - name: Build React Frontend
+    - name: Sync build directory with frontend directory
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.SERVER_HOST }}
         username: ${{ secrets.SERVER_USERNAME }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         password: ${{ secrets.SSH_PRIVATE_PASSWORD }}
-        port: ${{ secrets.PORT }}
+        port: ${{ secrets.SERVER_PORT }}
         script_stop: true
         script: |
           rsync -r -e "ssh -p ${{ secrets.PORT }}" "${{ secrets.PROJECT_PATH }}/react/dist/**" ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_HOST }}:${{ secrets.FRONTEND_PATH }}
 
-    # - name: Copy Build Files to target directory
+    # - name: Sync build directory with frontend directory
     #   run: |
     #     rsync -r -e "ssh -p ${{ secrets.PORT }}" "${{ secrets.PROJECT_PATH }}/react/dist/**" ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_HOST }}:${{ secrets.FRONTEND_PATH }}
 
