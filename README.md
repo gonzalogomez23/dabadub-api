@@ -1,1 +1,0 @@
-This project is a full-stack web application featuring a Laravel-based API backend and a React frontend. The Laravel API handles data management and server-side logic, while the React frontend offers a responsive, user-friendly interface. This setup allows seamless communication between the client and server, delivering a dynamic web experience.
