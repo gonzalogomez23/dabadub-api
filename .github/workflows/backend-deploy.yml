@@ -5,15 +5,13 @@ on:
     push:
       branches:
         - main
-      paths:
-        - 'domains/api.dabadub.com/**'
-        - '!domains/api.dabadub.com/react/**'
+      paths-ignore:
+        - 'react/**'
     pull_request:
       branches:
         - main
-      paths:
-        - 'domains/api.dabadub.com/**' 
-        - '!domains/api.dabadub.com/react/**' 
+      paths-ignore:
+        - 'react/**' 
 
 # Authenticate to the the server via ssh and run our deployment script 
 jobs:
