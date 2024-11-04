@@ -27,6 +27,12 @@ jobs:
       with:
         node-version: 18
 
+    - name: Install dependencies and build
+      run: |
+        cd react # Cambia esto a la ruta del frontend en tu proyecto
+        npm install
+        npm run build
+
     - name: Build React Frontend
       uses: appleboy/ssh-action@master
       with:
