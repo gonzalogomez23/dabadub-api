@@ -52,13 +52,13 @@ jobs:
     #     rsync -r -e "ssh -p ${{ secrets.PORT }}" "${{ secrets.PROJECT_PATH }}/react/dist/**" ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_HOST }}:${{ secrets.FRONTEND_PATH }}
 
 
-    # - name: ssh deploy
-    #   uses: easingthemes/ssh-deploy@v5.1.0     
-    #   with:
-    #     SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-    #     ARGS: "-rltgoDzvO"
-    #     SOURCE: "dist/"
-    #     REMOTE_HOST: ${{ secrets.SERVER_HOST }}
-    #     REMOTE_USER: ${{ secrets.SERVER_USERNAME }}
-    #     TARGET: ${{ secrets.FRONTEND_PATH }}
+    - name: ssh deploy
+      uses: easingthemes/ssh-deploy@v5.1.0     
+      with:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        ARGS: "-rltgoDzvO"
+        SOURCE: "dist/"
+        REMOTE_HOST: ${{ secrets.SERVER_HOST }}
+        REMOTE_USER: ${{ secrets.SERVER_USERNAME }}
+        TARGET: ${{ secrets.FRONTEND_PATH }}
 
