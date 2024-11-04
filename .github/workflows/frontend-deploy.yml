@@ -1,0 +1,40 @@
+name: Deploy React Frontend
+
+# Trigger the workflow on push and pull request events on the production branch
+on:
+  push:
+    branches:
+      - production
+    paths:
+      - 'domains/api.dabadub.com/react/**'
+  pull_request:
+    branches:
+      - production
+    paths:
+      - 'domains/api.dabadub.com/react/**'
+      
+# Authenticate to the the server via ssh and run our deployment script 
+jobs:
+  deploy_frontend:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Build React Frontend
+      run: |
+        cd domains/api.dabadub.com/react
+        npm install
+        npm run build
+
+    - name: ssh deploy
+      uses: easingthemes/ssh-deploy@v5.1.0     
+      with:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        ARGS: "-rltgoDzvO"
+        SOURCE: "dist/"
+        REMOTE_HOST: ${{ secrets.SERVER_HOST }}
+        REMOTE_USER: ${{ secrets.SERVER_USERNAME }}
+        TARGET: ${{ secrets.FRONTEND_PATH }}
+
