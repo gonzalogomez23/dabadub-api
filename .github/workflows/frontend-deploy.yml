@@ -5,13 +5,13 @@ on:
   push:
     branches:
       - main
-    # paths:
-    #   - 'domains/api.dabadub.com/react/**'
+    paths:
+      - 'domains/api.dabadub.com/react/**'
   pull_request:
     branches:
       - main
-    # paths:
-    #   - 'domains/api.dabadub.com/react/**'
+    paths:
+      - 'domains/api.dabadub.com/react/**'
       
 # Authenticate to the the server via ssh and run our deployment script 
 jobs:
@@ -55,7 +55,7 @@ jobs:
       with:
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         ARGS: "-rltgoDzvO"
-        SOURCE: "dist/"
+        SOURCE: "react/dist/"
         REMOTE_HOST: ${{ secrets.SERVER_HOST }}
         REMOTE_USER: ${{ secrets.SERVER_USERNAME }}
         TARGET: ${{ secrets.FRONTEND_PATH }}
