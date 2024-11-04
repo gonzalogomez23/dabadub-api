@@ -4,12 +4,12 @@ name: Deploy React Frontend
 on:
   push:
     branches:
-      - production
+      - main
     paths:
       - 'domains/api.dabadub.com/react/**'
   pull_request:
     branches:
-      - production
+      - main
     paths:
       - 'domains/api.dabadub.com/react/**'
       
