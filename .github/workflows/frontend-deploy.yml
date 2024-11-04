@@ -21,6 +21,11 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
+  
+    - name: Node Setup
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
 
     - name: Build React Frontend
       uses: appleboy/ssh-action@master
@@ -31,19 +36,23 @@ jobs:
         password: ${{ secrets.SSH_PRIVATE_PASSWORD }}
         port: ${{ secrets.PORT }}
         script_stop: true
-        # script: "cd /var/www/html && ./.scripts/deploy.sh"
         script: |
           cd ${{ secrets.FRONTEND_PATH }}
           npm install
           npm run build
 
-    - name: ssh deploy
-      uses: easingthemes/ssh-deploy@v5.1.0     
-      with:
-        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-        ARGS: "-rltgoDzvO"
-        SOURCE: "dist/"
-        REMOTE_HOST: ${{ secrets.SERVER_HOST }}
-        REMOTE_USER: ${{ secrets.SERVER_USERNAME }}
-        TARGET: ${{ secrets.FRONTEND_PATH }}
+    - name: Copy Build Files to target directory
+      run: |
+        rsync -r -e "ssh -p ${{ secrets.PORT }}" "${{ secrets.PROJECT_PATH }}/react/dist/**" ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_HOST }}:${{ secrets.FRONTEND_PATH }}
+
+
+    # - name: ssh deploy
+    #   uses: easingthemes/ssh-deploy@v5.1.0     
+    #   with:
+    #     SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+    #     ARGS: "-rltgoDzvO"
+    #     SOURCE: "dist/"
+    #     REMOTE_HOST: ${{ secrets.SERVER_HOST }}
+    #     REMOTE_USER: ${{ secrets.SERVER_USERNAME }}
+    #     TARGET: ${{ secrets.FRONTEND_PATH }}
 
