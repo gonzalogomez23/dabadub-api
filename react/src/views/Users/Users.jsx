@@ -45,15 +45,15 @@ export default function Users() {
     return (
     <>
         <div className="flex justify-between items-end py-6">
-            <h1 className="text-4xl text-gray-800 font-semibold font-headings px-2">Users</h1>
+            <h1 className="text-4xl text-primary font-semibold font-headings px-2">Users</h1>
             <ButtonLink to="/users/new" className="btn-add">
                 <PlusIcon className="size-5"/>
                 Add new
             </ButtonLink> 
         </div>
-        <div className="border rounded-lg overflow-hidden">
+        <div className="border border-border1 rounded-lg overflow-hidden bg-white shadow-sm">
             <table className={`${styles['users-table']}`}>
-                <thead className="text-gray-800 bg-gray-100">
+                <thead className="text-gray-800 bg-green-500/10">
                     <tr>
                         <th scope="col">ID</th>
                         <th scope="col">Name</th>

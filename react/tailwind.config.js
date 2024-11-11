@@ -14,6 +14,8 @@ export default {
         primary: 'var(--color-primary)',
         secondary: 'var(--color-secondary)',
         dark1: 'var(--color-dark1)',
+        light1: 'var(--color-light1)',
+        border1: 'var(--color-border1)',
       },
       fontFamily: {
         headings: ["Outfit", ...defaultTheme.fontFamily.sans],

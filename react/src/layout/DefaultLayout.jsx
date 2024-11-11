@@ -4,7 +4,10 @@ import { useEffect } from "react";
 import axiosClient from "../axios-client.js";
 
 import AsideLink from 'components/AsideLink'
-import LogoEspendub from "../assets/LogoEspendub.jsx";
+// import LogoDabadub from "../assets/LogoDabadub.jsx";
+import DabadubHorizontal from "../assets/DabadubHorizontal.jsx";
+import DropdownMenu from "../components/DropdownMenu.jsx";
+import { ArrowRightStartOnRectangleIcon, UserIcon, UserCircleIcon } from '@heroicons/react/24/outline';
 
 export default function DefaultLayout() {
 
@@ -32,33 +35,47 @@ export default function DefaultLayout() {
     }, [])
 
     return (
-        <div id="defaultLayout" className="flex w-full h-screen p-4 gap-4">
-            <aside className="w-full max-w-80">
-                <div className="w-full h-full flex flex-col gap-6 border shadow-sm rounded-xl p-2">
-                    <div className="flex items-center gap-3 p-2">
-                        <LogoEspendub color="var(--color-primary)" className="w-10"/>
-                        <h1 className="text-primary font-headings font-medium text-3xl">daba<span className="font-bold">Dub</span></h1>
+        <div id="defaultLayout" className="flex flex-col w-full min-h-screen bg-white bg-gradient-to-br from-light1 to-transparent">
+            <header className="w-full flex items-center justify-between bg-white/40 border-t border-b border-border1 px-8 py-6">
+                <Link to="/">
+                    <DabadubHorizontal color="var(--color-primary)" className="w-44"/>
+                </Link>
+                <DropdownMenu
+                    buttonText={user.name}
+                    buttonIcon={(
+                        <>
+                            <UserCircleIcon className="size-6"/>
+                        </>
+                    )}
+                    menuContent={(
+                        <>
+                            <a href="#" onClick={onLogout} className="w-full flex gap-2 items-center hover:bg-gray-200/60 rounded p-2">
+                                <UserIcon className="size-6"/>
+                                My profile
+                            </a>
+                            <a href="#" onClick={onLogout} className="w-full flex gap-2 items-center hover:bg-gray-200/60 rounded p-2">
+                                <ArrowRightStartOnRectangleIcon className="size-6"/>
+                                Logout
+                            </a>
+                        </>
+                    )}>
+                </DropdownMenu>
+            </header>
+            <main className="w-100 grow flex p-4">
+                <aside className="w-full max-w-80">
+                    <div className="w-full h-full flex flex-col gap-6 border border-border1 shadow-sm rounded-xl bg-white/40 p-2">
+                            
+                        <div className="w-full flex flex-col gap-2">
+                            <AsideLink to="/">Home</AsideLink>
+                            <AsideLink to="/resources">Resources</AsideLink>
+                            <AsideLink to="/users">Users</AsideLink>
+                        </div>
                     </div>
-                    <div className="w-full flex flex-col gap-2">
-                        <AsideLink to="/dashboard">Dashboard</AsideLink>
-                        <AsideLink to="/users">Users</AsideLink>
-                    </div>
-                </div>
-            </aside>
-            <div className="content grow">
-                <header className="w-full border shadow-sm rounded-xl flex items-center justify-between px-8 py-6">
-                    <div>
-                        Header
-                    </div>
-                    <div className="flex gap-8">
-                        {user.name}
-                        <a href="#" onClick={onLogout} className="btn-logout">Logout</a>
-                    </div>
-                </header>
-                <main className="p-4">
+                </aside>
+                <div className="content grow p-4">
                     <Outlet/>
-                </main>
-            </div>
+                </div>
+            </main>
             {notification &&
             <div className="notification">
                 {notification}
