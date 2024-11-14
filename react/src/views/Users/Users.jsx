@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axiosClient from "../../axios-client.js";
 import { useStateContext } from "../../contexts/ContextProvider.jsx";
-import ButtonLink from "../../components/ButtonLink.jsx";
+import ButtonLink from "../../components/PrimaryButtonLink.jsx";
 import { PlusIcon } from '@heroicons/react/24/solid'
 
 // Styles

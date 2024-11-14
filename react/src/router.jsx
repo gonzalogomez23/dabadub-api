@@ -6,7 +6,7 @@ import Users from "./views/Users/Users";
 import Signup from "./views/Signup";
 import NotFound from "./views/NotFound";
 import DefaultLayout from "./layout/DefaultLayout";
-import GuestLayout from "./layout/GuestLayout";
+import LoginLayout from "./layout/LoginLayout";
 import Dashboard from "./views/Dashboard";
 import UserForm from "./views/UserForm";
 
@@ -47,7 +47,7 @@ const router = createBrowserRouter([
     },
     {
         path: '/',
-        element: <GuestLayout />,
+        element: <LoginLayout />,
         children: [
             {
                 path: '/login',
