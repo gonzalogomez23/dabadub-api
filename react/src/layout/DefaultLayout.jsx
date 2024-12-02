@@ -7,15 +7,11 @@ import AsideLink from 'components/AsideLink'
 import DabadubHorizontal from "../assets/DabadubHorizontal.jsx";
 import DropdownMenu from "components/DropdownMenu.jsx";
 import { ArrowRightStartOnRectangleIcon, UserIcon, UserCircleIcon, HomeModernIcon, HomeIcon, NewspaperIcon, BriefcaseIcon, UserGroupIcon } from '@heroicons/react/24/outline';
-import SecondaryButtonLink from "components/SecondaryButtonLink.jsx";
+import PrimaryButton from "components/PrimaryButton.jsx";
 
 export default function DefaultLayout() {
 
     const {user, token, notification, setUser, setToken} = useStateContext()
-
-    // if (!token){
-    //     return <Navigate to="/login"/>
-    // }
 
     const onLogout = (ev) => {
         ev.preventDefault()
@@ -28,15 +24,20 @@ export default function DefaultLayout() {
     }
 
     useEffect(() => {
-        axiosClient.get('/user')
-            .then(({data}) => {
-                setUser(data)
-            })
-    }, [])
+        if (token) {
+            axiosClient.get('/user')
+                .then(({ data }) => {
+                    setUser(data);
+                })
+                .catch((err) => {
+                    console.error('Error fetching user data:', err);
+                });
+        }
+    }, [token])
 
     return (
-        <div id="defaultLayout" className="flex flex-col w-full min-h-screen bg-white bg-gradient-to-br from-light1 to-transparent"> {/* bg-gradient-to-br from-light1 to-transparent */}
-            <header className="w-full flex items-center justify-between bg-white/40 border-t border-b border-border1 px-8 py-6">
+        <div id="defaultLayout" className="flex flex-col h-screen w-full overflow-x-hidden bg-gray-100 min-h-full gap-3 p-4"> {/* bg-gradient-to-br from-light1 to-transparent */}
+            <header className="w-full flex items-center justify-between bg-white rounded-xl px-8 py-6">
                 <Link to="/">
                     <DabadubHorizontal color="var(--color-primary)" className="w-44"/>
                 </Link>
@@ -62,24 +63,24 @@ export default function DefaultLayout() {
                     )}>
                 </DropdownMenu>
                 :
-                <SecondaryButtonLink to="/login">
+                <PrimaryButton to="/login" variant="secondary">
                     {/* <PlusIcon className="size-5"/> */}
                     Login
-                </SecondaryButtonLink>
+                </PrimaryButton>
                 }
             </header>
-            <main className="w-100 grow flex p-4">
+            <main className="w-100 grow flex gap-3">
                 <aside className="w-full max-w-80">
-                    <div className="w-full h-full flex flex-col gap-6 border border-border1 shadow-sm rounded-xl bg-white/40 p-2">
+                    <div className="w-full flex flex-col gap-6 rounded-xl bg-white p-2">
                             
                         <div className="w-full flex flex-col gap-2">
                             <AsideLink to="/">
                                 <HomeIcon className="size-6"/>
                                 Home
                             </AsideLink>
-                            <AsideLink to="/resources">
+                            <AsideLink to="/posts">
                                 <NewspaperIcon className="size-6"/>
-                                Resources
+                                Posts
                             </AsideLink>
                             <AsideLink>
                                 <HomeModernIcon className="size-6"/>
@@ -97,14 +98,16 @@ export default function DefaultLayout() {
                         </div>
                     </div>
                 </aside>
-                <div className="content grow p-4">
+                <div className="content grow rounded-xl bg-white p-4">
                     <Outlet/>
                 </div>
             </main>
             {notification &&
-            <div className="notification">
-                {notification}
-            </div>
+                <div class="fixed top-0 left-0 w-screen flex justify-center p-8" role="alert">
+                    <div className="max-w-full text-green-800 bg-green-50 border-2 border-green-700 rounded-lg px-6 py-3">
+                        <span class="font-medium">{notification}</span>
+                    </div>
+                </div>
             }
         </div>
     )

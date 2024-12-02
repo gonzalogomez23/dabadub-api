@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",                        // Use a modern version of ECMAScript
+    "lib": ["DOM", "DOM.Iterable", "ES2022"], // Support for DOM and ES2022 features
+    "allowJs": true,                          // Allow the use of JavaScript files
+    "checkJs": false,                         // Do not perform type checking on JavaScript files
+    "jsx": "react-jsx",                       // Enable JSX with React 17+ (automatic runtime)
+    "module": "ESNext",                       // Use the most modern module system
+    "moduleResolution": "Node",              // Resolve modules in the Node.js style
+    "resolveJsonModule": true,                // Allow importing JSON files
+    "esModuleInterop": true,                  // Improve interoperability with CommonJS modules
+    "skipLibCheck": true,                     // Skip type checking for declaration files
+    "strict": true,                           // Enable strict type-checking options
+    "forceConsistentCasingInFileNames": true, // Enforce consistent casing in imports
+    "baseUrl": ".",                           // Set the base directory
+    "paths": {
+      "@components/*": ["src/components/*"],  // Example alias for components
+      "@utils/*": ["src/utils/*"]             // Example alias for utilities
+    },
+    "allowSyntheticDefaultImports": true,     // Allow default imports for ES modules
+    "incremental": true                       // Enable incremental compilation
+  },
+  "include": ["src/**/*", "src/**/*.ts", "src/**/*.tsx", "src/**/*.js", "src/**/*.jsx"], // Include all relevant files
+  "exclude": ["node_modules", "dist"]        // Exclude dependencies and the build output
+}

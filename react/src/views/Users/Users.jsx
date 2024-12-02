@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import axiosClient from "../../axios-client.js";
-import { useStateContext } from "../../contexts/ContextProvider.jsx";
-import ButtonLink from "../../components/PrimaryButtonLink.jsx";
+import axiosClient from "/src/axios-client.js";
+import { useStateContext } from "contexts/ContextProvider.jsx";
+import PrimaryButton from "components/PrimaryButton.jsx";
 import { PlusIcon } from '@heroicons/react/24/solid'
 
 // Styles
@@ -46,14 +46,14 @@ export default function Users() {
     <>
         <div className="flex justify-between items-end py-6">
             <h1 className="text-4xl text-primary font-semibold font-headings px-2">Users</h1>
-            <ButtonLink to="/users/new" className="btn-add">
+            <PrimaryButton to="/users/new" className="btn-add">
                 <PlusIcon className="size-5"/>
                 Add new
-            </ButtonLink> 
+            </PrimaryButton> 
         </div>
         <div className="border border-border1 rounded-lg overflow-hidden bg-white shadow-sm">
             <table className={`${styles['users-table']}`}>
-                <thead className="text-gray-800 bg-green-500/10">
+                <thead className="text-gray-800 bg-gray-100">
                     <tr>
                         <th scope="col">ID</th>
                         <th scope="col">Name</th>

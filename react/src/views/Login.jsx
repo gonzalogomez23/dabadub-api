@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useStateContext } from "../contexts/ContextProvider";
 import axiosClient from "../axios-client.js";
 import DabadubBox from "../assets/DabadubBox.jsx";
+import PrimaryButton from "components/PrimaryButton";
 
 export default function Login() {
 
@@ -12,7 +13,7 @@ export default function Login() {
     const [errors, setErrors] = useState(null)
     const {setUser, setToken} = useStateContext()
 
-    const onSubmit = (ev) => {
+    const handleSubmit = (ev) => {
         ev.preventDefault()
         const payload = {
             email: emailRef.current.value,
@@ -43,18 +44,21 @@ export default function Login() {
     return (
         <div className="flex bg-white bg-gradient-to-br from-light1 to-transparent min-h-screen w-full flex-col items-center justify-center gap-8 p-4">
             <DabadubBox color="var(--color-primary)" className="w-40"/>
-            <form className="max-w-full flex flex-col items-start bg-white/60 border border-border1 shadow-sm rounded-xl gap-4 py-6 px-4 lg:p-8" action="" onSubmit={onSubmit}>
+            <form className="max-w-full flex flex-col items-start bg-white/60 border border-border1 shadow-sm rounded-xl gap-4 py-6 px-4 lg:p-8" action="" onSubmit={handleSubmit}>
                 <h1 className="title">Login into your account</h1>
-                {errors && <div className="alert">
+                
+                <input className="w-96 max-w-full border rounded-lg px-4 py-2 focus:outline-primary" ref={emailRef} type="email" placeholder="Email"/>
+                <input className="w-96 max-w-full border rounded-lg px-4 py-2 focus:outline-primary" ref={passwordRef} type="password" placeholder="Password"/>
+                {errors && <ul className="text-red-700">
                     {Object.keys(errors).map(key => (
-                        <p key={key}>{errors[key][0]}</p>
+                        <li key={key}>{errors[key][0]}</li>
                     ))}
-                </div>}
-                <input className="w-96 max-w-full border rounded-lg px-4 py-2" ref={emailRef} type="email" placeholder="Email"/>
-                <input className="w-96 max-w-full border rounded-lg px-4 py-2" ref={passwordRef} type="password" placeholder="Password"/>
-                <button className="btn btn-block bg-primary text-white px-4 py-2 rounded-lg ms-auto">Login</button>
+                </ul>}
+                <PrimaryButton className="ms-auto" onClick={handleSubmit} type="submit">
+                    Login
+                </PrimaryButton>
                 <p className="w-full text-end">
-                    Not Registered? <Link to="/signup" className="text-primary hover:">Create an acount</Link>
+                    Not Registered? <Link to="/signup" className="text-primary hover:underline">Create an acount</Link>
                 </p>
             </form>
         </div>

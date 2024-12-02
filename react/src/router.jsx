@@ -1,14 +1,16 @@
 import {Navigate, createBrowserRouter} from "react-router-dom";
-import Home from "./views/Home";
-import Resources from "./views/Resources";
-import Login from "./views/Login";
-import Users from "./views/Users/Users";
-import Signup from "./views/Signup";
-import NotFound from "./views/NotFound";
-import DefaultLayout from "./layout/DefaultLayout";
-import LoginLayout from "./layout/LoginLayout";
-import Dashboard from "./views/Dashboard";
-import UserForm from "./views/UserForm";
+import Home from "views/Home";
+import Posts from "views/Posts/Posts";
+import Login from "views/Login";
+import Users from "views/Users/Users";
+import Signup from "views/Signup";
+import NotFound from "views/NotFound";
+import DefaultLayout from "layout/DefaultLayout";
+import LoginLayout from "layout/LoginLayout";
+import Dashboard from "views/Dashboard";
+import UserForm from "views/Users/UserForm";
+import PostForm from "views/Posts/PostForm";
+import Post from "./views/Posts/Post";
 
 const router = createBrowserRouter([
     {
@@ -24,16 +26,24 @@ const router = createBrowserRouter([
                 element: <Home />
             },
             {
-                path: '/resources',
-                element: <Resources />
-            },
-            {
                 path: '/dashboard',
                 element: <Dashboard />
             },
             {
                 path: '/users',
                 element: <Users />
+            },
+            {
+                path: '/posts',
+                element: <Posts />
+            },
+            {
+                path: '/posts/:slug',
+                element: <Post />
+            },
+            {
+                path: '/posts/new',
+                element: <PostForm key="postCreate"/>
             },
             {
                 path: '/users/new',
