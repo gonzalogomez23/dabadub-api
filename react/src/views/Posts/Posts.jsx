@@ -12,6 +12,7 @@ const Posts = () => {
     const { category } = useParams(); 
 
     const getPosts = () => {
+        setPosts([]);
         setLoading(true)
         let url = "/posts";
         if (category) {
@@ -43,14 +44,28 @@ const Posts = () => {
             </div>
             <div className='grid gap-4 grid-cols-1 md:grid-cols-2 xl:grid-cols-3'>
                 {loading && (
-                    <div>Loading...</div>
+                    // <div>Loading...</div>
+                    [...Array(6)].map((_, index) => (
+                    <div className="animate-pulse p-4 rounded-xl border border-border1 bg-white shadow-sm">
+                        {/* <div className="h-40 bg-gray-300 rounded-md"></div> */}
+                        <div className="mt-4 h-4 w-3/4 bg-gray-200 rounded mb-4"></div>
+                        <div className="mt-4 h-4 w-3/4 bg-gray-200 rounded"></div>
+                        <div className="ms-auto mt-2 h-7 w-7 bg-gray-200 rounded-full"></div>
+                    </div>
+                    ))
                 )}
-                {posts.map(post => (
+                {posts && posts.map(post => (
                     <PostCard
                     key={post.id}
                     post={post}
                 ></PostCard>
                 ))}
+                {!loading && posts.length === 0 && (
+                    <div className="text-gray-500 text-center col-span-full py-6">
+                        No posts found in this category
+                    </div>
+                )}
+                {/* <div>No founded posts</div> */}
             </div>
 
           </div>
