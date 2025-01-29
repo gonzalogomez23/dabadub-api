@@ -8,6 +8,7 @@ const AsideLink = ({ to, children, className = '', ...props }) => {
         to={to}
         {...props}
         {...(!to && { onClick: (e) => e.preventDefault() })}
+        end // Ensures the link is only active when the URL matches exactly, preventing "All posts" from being active when a category is selected
     >
         {({ isActive }) => (
             <div

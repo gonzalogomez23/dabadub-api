@@ -30,4 +30,9 @@ class Post extends Model
         'image',
         'published',
     ];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }

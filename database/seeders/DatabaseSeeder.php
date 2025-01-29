@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
         User::factory(50)->create();
         
         $this->call(PostSeeder::class);
+        $this->call(CategorySeeder::class);
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',

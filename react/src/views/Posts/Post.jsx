@@ -28,7 +28,7 @@ const Post = () => {
 
     if(loading){
         return(
-            <div>Loading...</div>
+            <div className="w-full flex items-center justify-center p-12">Loading...</div>
         )
     }
 

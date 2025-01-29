@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,7 +32,7 @@ Route::middleware('auth:sanctum')->group(function() {
 
 
 Route::apiResource('/posts', PostController::class);
-Route::get('/posts/{slug}', [PostController::class, 'show']);
+Route::apiResource('/categories', CategoryController::class);
 
 Route::post('/posts', [PostController::class, 'store']);
 

@@ -14,6 +14,8 @@ class PostSeeder extends Seeder
      */
     public function run(): void
     {
+        DB::table('posts')->truncate();
+
         DB::table('posts')->insert([
             [
                 'title' => 'How to Move to Dublin',
@@ -24,6 +26,7 @@ class PostSeeder extends Seeder
                 'published' => true,
                 'created_at' => now(),
                 'updated_at' => now(),
+                'category_id' => 1,
             ],
             [
                 'title' => 'Top 10 Cafes in Dublin',
@@ -32,6 +35,7 @@ class PostSeeder extends Seeder
                 'content' => 'From cozy corners to vibrant spaces, here are the top cafes in Dublin to satisfy your caffeine cravings.',
                 'image' => 'top-cafes-dublin.jpg',
                 'published' => true,
+                'category_id' => null,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -42,6 +46,7 @@ class PostSeeder extends Seeder
                 'content' => 'The Irish job market is competitive, but with the right approach, you can secure a great job. Here’s how.',
                 'image' => 'job-hunting-ireland.jpg',
                 'published' => true,
+                'category_id' => 2,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Post;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PostResource;
 use App\Http\Resources\PostCollection;
@@ -15,10 +16,39 @@ class PostController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    // public function index()
+    // {
+    //     $posts = new PostCollection(Post::orderBy('id', 'DESC')->paginate(10));
+    //     return $posts;
+    // }
+
+    public function index(Request $request)
     {
-        return new PostCollection(Post::orderBy('id', 'DESC')->paginate(10));
+        // $categoryId = $request->query('category_id');
+
+        // $posts = Post::query()
+        //     ->when($categoryId, function ($query, $categoryId) {
+        //         $query->where('category_id', $categoryId);
+        //     })
+        //     ->orderBy('id', 'DESC')
+        //     ->paginate(10);
+
+        // $posts = new PostCollection($posts);
+        // return $posts;
+
+        $categorySlug = $request->query('category_slug');
+        $posts = Post::query()
+            ->when($categorySlug, function ($query, $categorySlug) {
+                $query->whereHas('category', function ($q) use ($categorySlug) {
+                    $q->where('slug', $categorySlug);
+                });
+            })
+            ->get();
+            $posts = new PostCollection($posts);
+        return $posts;
     }
+
+    
 
     /**
      * Store a newly created resource in storage.

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useParams } from "react-router-dom";
 import axiosClient from "/src/axios-client.js";
 import PostCard from 'components/PostCard';
 import PrimaryButton from "components/PrimaryButton.jsx";
@@ -8,13 +9,19 @@ const Posts = () => {
 
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(false);
+    const { category } = useParams(); 
 
     const getPosts = () => {
         setLoading(true)
-        axiosClient.get('/posts')
+        let url = "/posts";
+        if (category) {
+            url += `?category_slug=${category}`;
+        }
+        axiosClient.get(url)
             .then(({data}) => {
                 setLoading(false)
                 setPosts(data.data)
+                console.log(data.data)
             })
             .catch(() => {
                 setLoading(false)
@@ -23,7 +30,7 @@ const Posts = () => {
 
     useEffect(() => {
         getPosts();
-    }, [])
+    }, [category])
 
     return (
           <div className="flex flex-col gap-4">

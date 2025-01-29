@@ -1,17 +1,20 @@
 import { Link, Navigate, Outlet } from "react-router-dom";
 import { useStateContext } from "../contexts/ContextProvider.jsx";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import axiosClient from "../axios-client.js";
 
 import AsideLink from 'components/AsideLink'
 import DabadubHorizontal from "../assets/DabadubHorizontal.jsx";
 import DropdownMenu from "components/DropdownMenu.jsx";
-import { ArrowRightStartOnRectangleIcon, UserIcon, UserCircleIcon, HomeModernIcon, HomeIcon, NewspaperIcon, BriefcaseIcon, UserGroupIcon } from '@heroicons/react/24/outline';
+import { ArrowRightStartOnRectangleIcon, UserIcon, UserCircleIcon, HomeIcon, NewspaperIcon, UserGroupIcon } from '@heroicons/react/24/outline';
 import PrimaryButton from "components/PrimaryButton.jsx";
+import CategoryIcon from "components/CategoryIcon.jsx";
 
 export default function DefaultLayout() {
 
     const {user, token, notification, setUser, setToken} = useStateContext()
+    const [categories, setCategories] = useState([]);
+
 
     const onLogout = (ev) => {
         ev.preventDefault()
@@ -34,6 +37,33 @@ export default function DefaultLayout() {
                 });
         }
     }, [token])
+
+    
+    const getCategories = () => {
+        // setLoading(true)
+        axiosClient.get('/categories')
+            .then(({data}) => {
+                // setLoading(false)
+                // console.log(data.categories)
+                setCategories(data.categories)
+            })
+            .catch((err) => {
+                const response = err.response;
+                if (response && response.status === 422) {
+                  setErrors(response.data.errors || { general: [response.data.message] });
+                } else {
+                  console.error("Unexpected error:", response.data.error);
+                }
+              })
+            // .finally(() => {
+            // setLoading(false);
+            // });
+    }
+    
+    useEffect(() => {
+        getCategories()
+    }, [])
+
 
     return (
         <div id="defaultLayout" className="flex flex-col h-screen w-full overflow-x-hidden bg-gray-100 min-h-full gap-3 p-4"> {/* bg-gradient-to-br from-light1 to-transparent */}
@@ -72,7 +102,6 @@ export default function DefaultLayout() {
             <main className="w-100 grow flex gap-3">
                 <aside className="w-full max-w-80">
                     <div className="w-full flex flex-col gap-6 rounded-xl bg-white p-2">
-                            
                         <div className="w-full flex flex-col gap-2">
                             <AsideLink to="/">
                                 <HomeIcon className="size-6"/>
@@ -80,16 +109,18 @@ export default function DefaultLayout() {
                             </AsideLink>
                             <AsideLink to="/posts">
                                 <NewspaperIcon className="size-6"/>
-                                Posts
+                                All posts
                             </AsideLink>
-                            <AsideLink>
-                                <HomeModernIcon className="size-6"/>
-                                Living Spaces
-                            </AsideLink>
-                            <AsideLink>
-                                <BriefcaseIcon className="size-6"/>
-                                Work
-                            </AsideLink>
+                            {categories.map(category => (
+                                <AsideLink
+                                    to={`/posts/${category.slug}`}
+                                    key={category.id}
+                                    category={category}
+                                >
+                                    <CategoryIcon iconName={category.icon} className="size-6"/>
+                                    {category.title}
+                                </AsideLink>
+                            ))}
                             <AsideLink>
                                 <UserGroupIcon className="size-6"/>
                                 Comunity

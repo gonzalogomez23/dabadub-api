@@ -34,11 +34,11 @@ const router = createBrowserRouter([
                 element: <Users />
             },
             {
-                path: '/posts',
+                path: '/posts/:category?',
                 element: <Posts />
             },
             {
-                path: '/posts/:slug',
+                path: '/post/:slug',
                 element: <Post />
             },
             {
@@ -51,7 +51,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/users/:id',
-                element: <UserForm key="userUpdate" />
+                element: <UserForm key="userUpdate"/>
             },
         ]
     },
