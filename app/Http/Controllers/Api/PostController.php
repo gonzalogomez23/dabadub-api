@@ -16,26 +16,9 @@ class PostController extends Controller
     /**
      * Display a listing of the resource.
      */
-    // public function index()
-    // {
-    //     $posts = new PostCollection(Post::orderBy('id', 'DESC')->paginate(10));
-    //     return $posts;
-    // }
 
     public function index(Request $request)
     {
-        // $categoryId = $request->query('category_id');
-
-        // $posts = Post::query()
-        //     ->when($categoryId, function ($query, $categoryId) {
-        //         $query->where('category_id', $categoryId);
-        //     })
-        //     ->orderBy('id', 'DESC')
-        //     ->paginate(10);
-
-        // $posts = new PostCollection($posts);
-        // return $posts;
-
         $categorySlug = $request->query('category_slug');
         $posts = Post::query()
             ->when($categorySlug, function ($query, $categorySlug) {
@@ -58,14 +41,13 @@ class PostController extends Controller
         $data = $request->validated();
 
         try {
-            $post = Post::create([
-                'title' => $data['title'],
-                'slug' => Str::slug($data['title']),
-                'description' => $data['description'],
-                'content' => $data['content'],
-                // 'image' => 'move-to-dublin.jpg',
-                'published' => $data['published'],
-            ]);
+            if ($request->hasFile('image')) {
+                $data['image'] = $request->file('image')->store('posts', 'public');
+            }
+
+            $data['slug'] = Str::slug($data['title']);
+
+            $post = Post::create($data);
             
             return response()->json([
                 'message' => 'Post created successfully.',
@@ -86,6 +68,7 @@ class PostController extends Controller
     {
         $post = Post::where('slug', $slug)->firstOrFail();
         return new PostResource($post);
+        
     }
 
     /**
