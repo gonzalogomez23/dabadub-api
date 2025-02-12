@@ -10,9 +10,11 @@ export default {
   theme: {
     extend: {
       colors: {
-        // primary: 'rgb(var(--color-primary) / <alpha-value>)',
-        primary: 'var(--color-primary)',
-        secondary: 'var(--color-secondary)',
+        primary: {
+          DEFAULT: 'rgb(var(--color-primary) / <alpha-value>)',
+          // 600: 'rgb(var(--color-primary-600) / <alpha-value>)',
+        },
+        secondary: 'rgb(var(--color-secondary) / <alpha-value>)',
         dark1: 'var(--color-dark1)',
         light1: 'var(--color-light1)',
         border1: 'var(--color-border1)',
@@ -20,6 +22,7 @@ export default {
       fontFamily: {
         headings: ["Outfit", ...defaultTheme.fontFamily.sans],
         sans: ["Inter", ...defaultTheme.fontFamily.sans],
+        serif: ["Sorts_Mill_Goudy", ...defaultTheme.fontFamily.serif],
       }
     },
   },

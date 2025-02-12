@@ -1,6 +1,6 @@
 const App = ({ children }) => {
     return (
-        <div className="">
+        <div>
             {children}
         </div>
     );

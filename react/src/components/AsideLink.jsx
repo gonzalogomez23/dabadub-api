@@ -12,12 +12,12 @@ const AsideLink = ({ to, children, className = '', ...props }) => {
     >
         {({ isActive }) => (
             <div
-                className={`${className} font-headings hover:bg-green-600/5 rounded-md transition-all font-medium text-lg flex items-center gap-4 px-4 py-3 ${isActive && to && 'text-primary'} ${!to && 'text-gray-500 opacity-50 cursor-default hover:bg-transparent'}`}
+                className={`${className} font-headings hover:bg-secondary/5 rounded-md transition-all font-medium text-lg flex items-center gap-4 px-4 py-3 ${isActive && to && 'text-primary'} ${!to && 'text-gray-500 opacity-50 cursor-default hover:bg-transparent'}`}
             >
                 <div className='flex items-center gap-3'>
+                    {isActive && to && <div className='h-6 w-0.5 bg-primary rounded-full'></div>}
                     {children}
                 </div>
-                {isActive && to && <img src={activeLinkCircle} className='w-1'/>}
             </div>
         )}
     </NavLink>

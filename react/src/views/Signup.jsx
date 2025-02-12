@@ -1,8 +1,8 @@
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import axiosClient from "../axios-client.js";
-import { useStateContext } from "../contexts/ContextProvider";
-import DabadubBox from "../assets/DabadubBox.jsx";
+import axiosClient from "/src/axios-client.js";
+import { useStateContext } from "contexts/ContextProvider";
+import LogoDabadub from "assets/LogoDabadub.jsx";
 import PrimaryButton from "components/PrimaryButton";
 
 export default function Signup() {
@@ -39,7 +39,7 @@ export default function Signup() {
 
     return (
         <div className="flex bg-white bg-gradient-to-br from-light1 to-transparent min-h-screen w-full flex-col items-center justify-center gap-8 p-4">
-            <DabadubBox color="var(--color-primary)" className="w-40"/>
+            <LogoDabadub className="w-24"/>
             <form className="max-w-full flex flex-col items-start bg-white/60 border border-border1 shadow-sm rounded-xl gap-4 py-6 px-4 lg:p-8" action="" onSubmit={handleSubmit}>
                 <h1 className="title">Login into your account</h1>
                 {errors && <div className="alert">

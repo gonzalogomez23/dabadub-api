@@ -10,8 +10,8 @@
         font-display: swap;
     }
     @font-face {
-        font-family: "Montserrat";
-        src: url('/fonts/Montserrat/Montserrat-VariableFont_wght.ttf') format("truetype");
+        font-family: "Sorts_Mill_Goudy";
+        src: url('/fonts/Sorts_Mill_Goudy/SortsMillGoudy-Regular.ttf') format("truetype");
         font-weight: 100 1000;
         font-display: swap;
     }
@@ -23,9 +23,9 @@
     }
     
     :root{
-      --color-primary: #00594a;
-      --color-secondary: #24a55c;
-      --color-light1: #eafff0;
-      --color-border1: rgb(0, 116, 52, .2);
+      --color-primary: 27 25 75; /* #1B194B */
+      --color-secondary: 52 55 230; /* #3437E6 */
+      --color-light1: 243 243 246; /* #F3F3F6 */
+      --color-border1: rgb(22, 6, 74, .3);
     }
 }

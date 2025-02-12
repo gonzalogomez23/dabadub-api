@@ -1,6 +1,7 @@
 import {Navigate, createBrowserRouter} from "react-router-dom";
 import Home from "views/Home";
 import Posts from "views/Posts/Posts";
+import BlogLayout from "views/Posts/BlogLayout";
 import Login from "views/Login";
 import Users from "views/Users/Users";
 import Signup from "views/Signup";
@@ -33,14 +34,30 @@ const router = createBrowserRouter([
                 path: '/users',
                 element: <Users />
             },
+
+
             {
+                element: <BlogLayout />, // BlogLayout se aplica solo a estas páginas
+                children: [
+                    { 
+                        path: '/posts/:category?',
+                        element: <Posts />
+                    },
+                    { 
+                        path: '/post/:slug',
+                        element: <Post />
+                    },
+                ]
+            },
+
+            /* {
                 path: '/posts/:category?',
                 element: <Posts />
-            },
-            {
+            }, */
+            /* {
                 path: '/post/:slug',
                 element: <Post />
-            },
+            }, */
             {
                 path: '/posts/new',
                 element: <PostForm key="postCreate"/>

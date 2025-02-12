@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 
-const DropdownMenu = ({ buttonText, buttonIcon, menuContent }) => {
+const DropdownMenu = ({ label, buttonIcon, children }) => {
 
     const [isOpen, setIsOpen] = useState(false)
     const dropdownRef = useRef()
@@ -33,7 +33,7 @@ const DropdownMenu = ({ buttonText, buttonIcon, menuContent }) => {
             onClick={toggleMenu}
         >
             {buttonIcon ?? buttonIcon}
-            {buttonText}
+            {label}
         </button>
 
         {/* Dropdown menu, show/hide based on menu state.
@@ -47,7 +47,7 @@ const DropdownMenu = ({ buttonText, buttonIcon, menuContent }) => {
         {isOpen && (
             <div className="absolute right-0 z-10 mt-2 w-44 origin-top-right rounded-lg bg-white border shadow-sm focus:outline-none p-2" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabIndex="-1">
                 <div className="flex flex-col gap-2" role="none">
-                    {menuContent}
+                    {children}
                 </div>
             </div>
         )
@@ -55,6 +55,15 @@ const DropdownMenu = ({ buttonText, buttonIcon, menuContent }) => {
         }
         </div>
   )
+}
+
+DropdownMenu.Item = ({children, parentMethod}) => {
+    return (
+        <a href="#" onClick={parentMethod} className="w-full flex gap-2 items-center hover:bg-gray-200/60 rounded p-2">
+            {children}
+        </a>
+    )
+        
 }
 
 export default DropdownMenu

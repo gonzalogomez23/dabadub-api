@@ -5,7 +5,7 @@ const PrimaryButton = ({ to, variant = 'primary', className = '', children, ...p
     primary: 'text-white bg-primary hover:bg-secondary',
     secondary: 'text-primary bg-white/20 border-2 border-primary hover:bg-primary hover:text-white',
   }
-  const styleClasses = `rounded-full transition-all font-semibold w-fit flex items-center gap-2 py-2.5 px-5  ${variantClasses[variant] || variantClasses['primary']}`
+  const styleClasses = `rounded-full transition-all w-fit flex items-center gap-2 py-2.5 px-5  ${variantClasses[variant] || variantClasses['primary']}`
   
   if (to){
     return (

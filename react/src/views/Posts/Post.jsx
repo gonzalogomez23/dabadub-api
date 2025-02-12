@@ -41,10 +41,16 @@ const Post = () => {
     }
 
     return (
-        <div className="flex flex-col gap-6 p-12">
-            <h2 className="text-4xl font-bold">{post.title}</h2>
-            <p className="">{post.description}</p>
-            <p className="">{post.content}</p>
+        <div className="">
+            {post.image && (
+                <img src={post.image} alt={post.title} className="w-full h-80 object-cover" />
+            )}
+            <div className="w-full max-w-4xl mx-auto flex flex-col gap-6 p-12">
+                <h2 className="font-headings text-primary text-4xl font-medium">{post.title}</h2>
+                <p className="text-2xl font-serif text-zinc-700">{post.description}</p>
+                <hr />
+                <p>{post.content}</p>
+            </div>
         </div>
     )
 }
