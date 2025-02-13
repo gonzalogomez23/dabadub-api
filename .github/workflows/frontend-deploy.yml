@@ -27,16 +27,15 @@ jobs:
       with:
         node-version: 18
 
-    - name: Install dependencies and build
+    - name: Set up .env.production file
+      run: |
+        echo "VITE_API_BASE_URL=${{ secrets.API_URL }}" > react/.env.production
+
+    - name: Install dependencies and build project
       run: |
         cd react
         npm install
         npm run build
-
-    # - name: Sync build directory with frontend directory
-    #   run: |
-    #     rsync -r -e "ssh -p ${{ secrets.SERVER_PORT }}" "${{ secrets.PROJECT_PATH }}/react/dist/**" ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_HOST }}:${{ secrets.FRONTEND_PATH }}
-
 
     - name: Sync build directory with frontend directory
       uses: easingthemes/ssh-deploy@v5.1.0     
