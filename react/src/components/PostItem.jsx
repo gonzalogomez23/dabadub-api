@@ -11,7 +11,7 @@ const PostItem = ({post}) => {
             <p className="font-normal text-gray-700">{post.description}</p>
             <div className="flex">
             <span className="flex rounded-full items-center justify-center text-primary bg-secondary/10 font-headings px-3 py-1">
-                Prueba
+                Category name
             </span>
             </div>
         </div>

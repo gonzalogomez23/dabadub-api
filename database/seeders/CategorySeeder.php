@@ -20,26 +20,50 @@ class CategorySeeder extends Seeder
 
         DB::table('categories')->insert([
             [
-                'title' => 'Living spaces',
-                'slug' => Str::slug('Living spaces'),
-                'icon' => 'HomeModernIcon',
+                'title' => 'Technology',
+                'slug' => Str::slug('Technology'),
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'title' => 'Work',
-                'slug' => Str::slug('Work'),
-                'icon' => 'BriefcaseIcon',
+                'title' => 'Marketing and sales',
+                'slug' => Str::slug('Marketing and sales'),
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'title' => 'Procedure',
-                'slug' => Str::slug('Procedure'),
-                'icon' => 'ClipboardDocumentListIcon',
+                'title' => 'Arts & Design',
+                'slug' => Str::slug('Arts & Design'),
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+            [
+                'title' => 'Finance and investment',
+                'slug' => Str::slug('Finance and investment'),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'title' => 'Productivity',
+                'slug' => Str::slug('Productivity'),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'title' => 'Psychology',
+                'slug' => Str::slug('Psychology'),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'title' => 'Health',
+                'slug' => Str::slug('Health'),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]
         ]);
+        
     }
 }
+
+

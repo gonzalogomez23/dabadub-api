@@ -18,38 +18,86 @@ class PostSeeder extends Seeder
 
         DB::table('posts')->insert([
             [
-                'title' => 'How to Move to Dublin',
-                'slug' => Str::slug('How to Move to Dublin'),
-                'description' => 'A complete guide to moving to Dublin, Ireland.',
-                'content' => 'Moving to Dublin can be an exciting but challenging experience. Here is a step-by-step guide to help you settle in.',
-                // 'image' => 'move-to-dublin.jpg',
+                'title' => 'The Future of Artificial Intelligence',
+                'slug' => Str::slug('The Future of Artificial Intelligence'),
+                'description' => 'How AI is shaping industries and what to expect in the coming years.',
+                'content' => 'Artificial intelligence continues to evolve, transforming businesses, healthcare, and everyday life. Discover the key advancements in AI and their potential impact.',
                 'published' => true,
                 'created_at' => now(),
                 'updated_at' => now(),
-                'category_id' => 1,
+                'category_id' => 1, // Technology
             ],
             [
-                'title' => 'Top 10 Cafes in Dublin',
-                'slug' => Str::slug('Top 10 Cafes in Dublin'),
-                'description' => 'Discover the best places to grab a coffee in Dublin.',
-                'content' => 'From cozy corners to vibrant spaces, here are the top cafes in Dublin to satisfy your caffeine cravings.',
-                // 'image' => 'top-cafes-dublin.jpg',
+                'title' => 'Top Digital Marketing Strategies for 2025',
+                'slug' => Str::slug('Top Digital Marketing Strategies for 2025'),
+                'description' => 'Stay ahead of the competition with these cutting-edge marketing techniques.',
+                'content' => 'From AI-driven advertising to influencer marketing, the digital marketing landscape is constantly changing. Learn the most effective strategies for 2025.',
                 'published' => true,
-                'category_id' => null,
                 'created_at' => now(),
                 'updated_at' => now(),
+                'category_id' => 2, // Marketing and Sales
             ],
             [
-                'title' => 'Job Hunting in Ireland',
-                'slug' => Str::slug('Job Hunting in Ireland'),
-                'description' => 'Tips and tricks to find a job in Ireland quickly.',
-                'content' => 'The Irish job market is competitive, but with the right approach, you can secure a great job. Here’s how.',
-                // 'image' => 'job-hunting-ireland.jpg',
+                'title' => 'The Psychology Behind Consumer Decisions',
+                'slug' => Str::slug('The Psychology Behind Consumer Decisions'),
+                'description' => 'Understanding the psychological triggers that influence buying behavior.',
+                'content' => 'Cognitive biases, emotions, and social proof play a major role in purchasing decisions. Explore how psychology shapes consumer behavior.',
                 'published' => true,
-                'category_id' => 2,
                 'created_at' => now(),
                 'updated_at' => now(),
+                'category_id' => 6, // Psychology
             ],
+            [
+                'title' => 'How to Improve Productivity with Simple Habits',
+                'slug' => Str::slug('How to Improve Productivity with Simple Habits'),
+                'description' => 'Practical tips to get more done in less time.',
+                'content' => 'Small changes in daily routines can lead to significant improvements in productivity. Learn how to optimize your workflow and focus better.',
+                'published' => true,
+                'created_at' => now(),
+                'updated_at' => now(),
+                'category_id' => 5, // Productivity
+            ],
+            [
+                'title' => 'The Impact of Art and Design in Branding',
+                'slug' => Str::slug('The Impact of Art and Design in Branding'),
+                'description' => 'Why visual identity is crucial for brand success.',
+                'content' => 'Colors, typography, and composition play a vital role in brand perception. Discover how great design can boost a company’s reputation.',
+                'published' => true,
+                'created_at' => now(),
+                'updated_at' => now(),
+                'category_id' => 3, // Arts & Design
+            ],
+            /* [
+                'title' => 'Investment Strategies for Beginners',
+                'slug' => Str::slug('Investment Strategies for Beginners'),
+                'description' => 'A guide to getting started with smart investments.',
+                'content' => 'Understanding risk, diversification, and long-term planning are key to successful investing. Learn the basics of financial growth.',
+                'published' => true,
+                'created_at' => now(),
+                'updated_at' => now(),
+                'category_id' => 4, // Finance and Investment
+            ], */
+            [
+                'title' => 'The Role of Mental Health in Workplace Productivity',
+                'slug' => Str::slug('The Role of Mental Health in Workplace Productivity'),
+                'description' => 'How mental well-being affects efficiency and success.',
+                'content' => 'Burnout and stress can reduce workplace performance. Learn strategies to maintain mental health while excelling in your career.',
+                'published' => true,
+                'created_at' => now(),
+                'updated_at' => now(),
+                'category_id' => 6, // Psychology
+            ],
+            /* [
+                'title' => 'How a Healthy Diet Can Boost Your Energy Levels',
+                'slug' => Str::slug('How a Healthy Diet Can Boost Your Energy Levels'),
+                'description' => 'The connection between nutrition and productivity.',
+                'content' => 'Eating the right foods can improve concentration and stamina. Discover which nutrients are essential for sustained energy throughout the day.',
+                'published' => true,
+                'created_at' => now(),
+                'updated_at' => now(),
+                'category_id' => 7, // Health
+            ], */
         ]);
+        
     }
 }
