@@ -3,10 +3,9 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
-use App\Http\Resources\CategoryResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class PostResource extends JsonResource
+class CategoryResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,12 +16,8 @@ class PostResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'slug' => $this->slug,
             'title' => $this->title,
-            'description' => $this->description,
-            'content' => $this->content,
-            'image' => $this->image ? asset('storage/' . $this->image) : null,
-            'category' => new CategoryResource($this->category)
+            'slug' => $this->slug,
         ];
     }
 }

@@ -21,13 +21,16 @@ class PostController extends Controller
     {
         $categorySlug = $request->query('category_slug');
         $posts = Post::query()
+            ->with('category')
             ->when($categorySlug, function ($query, $categorySlug) {
                 $query->whereHas('category', function ($q) use ($categorySlug) {
                     $q->where('slug', $categorySlug);
                 });
             })
             ->get();
-            $posts = new PostCollection($posts);
+            // $posts = new PostCollection($posts);
+            $posts = PostResource::collection($posts);
+            // dd($posts);
         return $posts;
     }
 

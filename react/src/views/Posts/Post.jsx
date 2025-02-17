@@ -43,9 +43,14 @@ const Post = () => {
     return (
         <div className="">
             {post.image && (
-                <img src={post.image} alt={post.title} className="w-full h-80 object-cover" />
+                <img src={post.image} alt={post.title} className="w-full h-64 object-cover" />
             )}
             <div className="w-full max-w-4xl mx-auto flex flex-col gap-6 p-12">
+                {post.category &&
+                    <span className="flex w-fit rounded-full items-center justify-center text-sm text-primary border border-primary/20 font-headings px-3 py-1">
+                        {post.category.title}
+                    </span>
+                }
                 <h2 className="font-headings text-primary text-4xl font-medium">{post.title}</h2>
                 <p className="text-2xl font-serif text-zinc-700">{post.description}</p>
                 <hr />
