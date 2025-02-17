@@ -11,6 +11,7 @@ import LoginLayout from "layout/LoginLayout";
 import Dashboard from "views/Dashboard";
 import UserForm from "views/Users/UserForm";
 import PostForm from "views/Posts/PostForm";
+import PostFormNew from "views/Posts/PostFormNew";
 import Post from "./views/Posts/Post";
 
 const router = createBrowserRouter([
@@ -18,10 +19,6 @@ const router = createBrowserRouter([
         path: '/',
         element: <DefaultLayout />,
         children: [
-            // {
-            //     path: '/',
-            //     element: <Navigate  to="/users" />
-            // },
             {
                 path: '/',
                 element: <Home />
@@ -34,10 +31,8 @@ const router = createBrowserRouter([
                 path: '/users',
                 element: <Users />
             },
-
-
             {
-                element: <BlogLayout />, // BlogLayout se aplica solo a estas páginas
+                element: <BlogLayout />,
                 children: [
                     { 
                         path: '/posts/:category?',
@@ -49,18 +44,13 @@ const router = createBrowserRouter([
                     },
                 ]
             },
-
-            /* {
-                path: '/posts/:category?',
-                element: <Posts />
-            }, */
-            /* {
-                path: '/post/:slug',
-                element: <Post />
-            }, */
             {
-                path: '/posts/new',
-                element: <PostForm key="postCreate"/>
+                path: '/new-post',
+                element: <PostFormNew key="postCreate"/>
+            },
+            {
+                path: '/update-post/:id',
+                element: <PostForm key="postUpdate"/>
             },
             {
                 path: '/users/new',

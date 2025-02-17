@@ -9,7 +9,7 @@ import PrimaryButton from "components/PrimaryButton.jsx";
 
 export default function DefaultLayout() {
 
-    const {user, token, notification, setUser, setToken} = useStateContext()
+    const {user, setUser, token, setToken} = useStateContext()
 
     const handleLogout = (ev) => {
         ev.preventDefault()
@@ -42,7 +42,7 @@ export default function DefaultLayout() {
                 </Link>
                     {token ?
                         <div className="flex gap-4 items-center">
-                            <PrimaryButton to="/posts/new">
+                            <PrimaryButton to="/new-post">
                                 New post
                                 <PencilSquareIcon className="size-5"/>
                             </PrimaryButton>
@@ -71,13 +71,6 @@ export default function DefaultLayout() {
             <main className="w-100 grow">
                 <Outlet/>
             </main>
-            {notification &&
-                <div className="fixed top-0 left-0 w-screen flex justify-center p-8" role="alert">
-                    <div className="max-w-full text-green-800 bg-green-50 border-2 border-green-700 rounded-lg px-6 py-3">
-                        <span className="font-medium">{notification}</span>
-                    </div>
-                </div>
-            }
         </div>
     )
 }
