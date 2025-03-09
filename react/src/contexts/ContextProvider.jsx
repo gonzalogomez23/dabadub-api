@@ -11,15 +11,16 @@ const StateContext = createContext({
 
 export const ContextProvider = ({children}) => {
     const [user, setUser] = useState({});
-    const [notification, _setNotification] = useState('');
+    // const [notification, _setNotification] = useState('');
+    const [notification, _setNotification] = useState({ message: '', type: '' });
     const [token, _setToken] = useState(localStorage.getItem('ACCESS_TOKEN'));
 
-    const setNotification = (message) => {
-        _setNotification(message);
+    const setNotification = (message, type = 'success') => {
+        _setNotification({ message, type });
         setTimeout(() => {
-            _setNotification('')
-        }, 4000)
-    }
+            _setNotification({ message: '', type: '' });
+        }, 4000);
+    };
 
     const setToken = (token) => {
         _setToken(token)

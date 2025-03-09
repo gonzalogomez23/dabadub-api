@@ -31,8 +31,14 @@ class Post extends Model
         'published',
     ];
 
-    public function category()
+    // public function category()
+    // {
+    //     return $this->belongsTo(Category::class);
+    // }
+
+    public function getRouteKeyName()
     {
-        return $this->belongsTo(Category::class);
+        return 'slug';
     }
+
 }

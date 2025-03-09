@@ -16,7 +16,7 @@ export default {
         },
         secondary: 'rgb(var(--color-secondary) / <alpha-value>)',
         dark1: 'var(--color-dark1)',
-        light1: 'var(--color-light1)',
+        light1: 'rgb(var(--color-light1) / <alpha-value>)',
         border1: 'var(--color-border1)',
       },
       fontFamily: {

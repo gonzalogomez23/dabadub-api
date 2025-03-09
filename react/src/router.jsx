@@ -10,9 +10,10 @@ import DefaultLayout from "layout/DefaultLayout";
 import LoginLayout from "layout/LoginLayout";
 import Dashboard from "views/Dashboard";
 import UserForm from "views/Users/UserForm";
-import PostForm from "views/Posts/PostForm";
-import PostFormNew from "views/Posts/PostFormNew";
+// import PostForm from "views/Posts/PostForm";
+// import PostFormNew from "views/Posts/PostFormNew";
 import Post from "./views/Posts/Post";
+import CreateUpdatePost from "./views/Posts/CreateUpdatePost";
 
 const router = createBrowserRouter([
     {
@@ -46,11 +47,11 @@ const router = createBrowserRouter([
             },
             {
                 path: '/new-post',
-                element: <PostFormNew key="postCreate"/>
+                element: <CreateUpdatePost key="postCreate"/>
             },
             {
-                path: '/update-post/:id',
-                element: <PostForm key="postUpdate"/>
+                path: '/update-post/:slug',
+                element: <CreateUpdatePost key="postUpdate"/>
             },
             {
                 path: '/users/new',

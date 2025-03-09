@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\PostResource;
 use App\Http\Resources\PostCollection;
 use App\Http\Requests\StorePostRequest;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\UpdatePostRequest;
 
 class PostController extends Controller
@@ -21,15 +22,15 @@ class PostController extends Controller
     {
         $categorySlug = $request->query('category_slug');
         $posts = Post::query()
-            ->with('category')
+            // ->with('category')
             ->when($categorySlug, function ($query, $categorySlug) {
                 $query->whereHas('category', function ($q) use ($categorySlug) {
                     $q->where('slug', $categorySlug);
                 });
             })
             ->get();
-            // $posts = new PostCollection($posts);
-            $posts = PostResource::collection($posts);
+            $posts = new PostCollection($posts);
+            // $posts = PostResource::collection($posts);
             // dd($posts);
         return $posts;
     }
@@ -39,6 +40,7 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+
     public function store(StorePostRequest $request)
     {
         $data = $request->validated();
@@ -79,7 +81,34 @@ class PostController extends Controller
      */
     public function update(UpdatePostRequest $request, Post $post)
     {
-        //
+
+        $data = $request->validated();
+
+        try {
+            if ($request->hasFile('image')) {
+                if ($post->image) {
+                    Storage::disk('public')->delete($post->image);
+                }
+
+                $data['image'] = $request->file('image')->store('posts', 'public');
+            }
+
+            if (isset($data['title']) && $data['title'] !== $post->title) {
+                $data['slug'] = Str::slug($data['title']);
+            }
+
+            $post->update($data);
+
+            return response()->json([
+                'message' => 'Post updated successfully.',
+                'data' => $post,
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Failed to update post.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
     }
 
     /**
@@ -87,6 +116,21 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        try {
+            if ($post->image) {
+                Storage::disk('public')->delete($post->image);
+            }
+
+            $post->delete();
+
+            return response()->json([
+                'message' => 'Post deleted successfully.'
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Failed to delete post.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
     }
 }

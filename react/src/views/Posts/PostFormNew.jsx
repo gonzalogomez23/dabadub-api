@@ -1,188 +1,144 @@
-import { useEffect, useState, useRef } from "react";
-import axiosClient from "../../axios-client";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import PrimaryButton from "components/PrimaryButton";
 import { useStateContext } from "contexts/ContextProvider";
 
-const PostFormNew = () => {
-    const navigate = useNavigate();
-    const imageRef = useRef();
-    const titleRef = useRef();
-    const descriptionRef = useRef();
-    const contentRef = useRef();
-    const publishedRef = useRef();
+const PostFormNew = ({initialValues, onSubmit, isUpdateMode}) => {
 
-    const [isUpdatingPost, setIsUpdatingPost] = useState(false);
-    const [errors, setErrors] = useState(null);
-    const {setNotification} = useStateContext()
-    const [loading, setLoading] = useState(false);
-
-    const [post, setPost] = useState({
-        title: "",
-        description: "",
-        content: "",
-        published: true,
-    });
-
+    const [postData, setPostData] = useState(initialValues);
     const [image, setImage] = useState(null);
     const [preview, setPreview] = useState(null);
 
-    const handleFileChange = (file) => {
-        if (file) {
-            setImage(file);
-            setPreview(URL.createObjectURL(file));
-        }
+    const handleFileSelect = (event) => {
+        event.preventDefault();
+    
+        const file = event.target?.files?.[0] || event.dataTransfer?.files?.[0];
+        if (!file) return;
+    
+        setImage(file);
+        setPreview(URL.createObjectURL(file));
+        setPostData(prevData => ({ ...prevData, image: file }));
     };
 
-    const handleDrop = (event) => {
-        event.preventDefault();
-        const file = event.dataTransfer.files[0];
-        handleFileChange(file);
+    const handleBlur = (e) => {
+        const { name, value } = e.target;
+        setPostData((prev) => ({
+          ...prev,
+          [name]: value,
+        }));
     };
 
     const handleSubmit = (ev) => {
         ev.preventDefault();
     
+        const data = {
+            title: postData.title,
+            description: postData.description,
+            content: postData.content,
+            published: postData.published,
+            ...(isUpdateMode && { _method: "PUT" })
+        };
+    
+        if (!image) return onSubmit(data);
+    
         const formData = new FormData();
-        formData.append("title", titleRef.current.value);
-        formData.append("description", descriptionRef.current.value);
-        formData.append("content", contentRef.current.value);
-        formData.append("published", publishedRef.current.checked);
+        Object.entries(data).forEach(([key, value]) => formData.append(key, value));
+        formData.append("image", image);
     
-        if (image) formData.append("image", image);
-    
-        const method = isUpdatingPost ? "put" : "post";
-        const url = isUpdatingPost ? `/posts/${post.slug}` : "/posts";
-        const successMessage = isUpdatingPost ? "Post updated successfully" : "Post created successfully";
-    
-        handleRequest({ data: formData, method, url, successMessage });
+        return onSubmit(formData);
     };
-    
-    const handleRequest = ({ data, method, url, successMessage }) => {
-        setErrors(null);
-        setLoading(true);
-    
-        axiosClient({ method, url, data, headers: { "Content-Type": "multipart/form-data" } })
-            .then(() => {
-                setNotification(successMessage);
-                navigate("/posts");
-            })
-            .catch((err) => {
-                const response = err.response;
-                if (response?.status === 422) {
-                    setErrors(response.data.errors || { general: [response.data.message] });
-                } else {
-                    console.error("Unexpected error:", response?.data || err.message);
-                }
-            })
-            .finally(() => setLoading(false));
-    };
-    
 
     return (
-        <div className="w-full max-w-5xl mx-auto p-6">
-            <div className="bg-white rounded-2xl border border-primary/15 px-6 py-12">
-                <div className="w-full max-w-xl mx-auto">
-                    <h1 className="text-4xl text-primary font-semibold font-headings px-1 mb-5">
-                    Create new post
-                    </h1>
-                    <div className="card animated fadeInDown">
-                    {loading && <div className="text-center">Loading...</div>}
-                    {!loading && (
-                        <form
-                        className="max-w-full flex flex-col items-start gap-5"
-                        onSubmit={handleSubmit}
-                        >
-                            <div className="flex flex-col gap-2 w-full">
-                                <label htmlFor="imageUpload">Upload Image</label>
-                                <div
-                                    id="imageUpload"
-                                    className="w-full border-2 border-dashed rounded-lg p-6 flex flex-col items-center justify-center cursor-pointer hover:bg-gray-100"
-                                    onDrop={handleDrop}
-                                    onDragOver={(e) => e.preventDefault()}
-                                    onClick={() => document.getElementById("fileInput").click()}
-                                    aria-describedby="imageHelp"
-                                >
-                                {preview ? (
-                                    <img src={preview} alt="Preview" className="w-full h-40 object-contain rounded-lg" />
-                                ) : (
-                                    <p className="text-gray-500">Drag & Drop an image or click to upload</p>
-                                )}
-                                </div>
-                                <input
-                                    type="file"
-                                    id="fileInput"
-                                    className="hidden"
-                                    accept="image/jpg, image/png, image/jpeg, image/webp"
-                                    onChange={(e) => handleFileChange(e.target.files[0])}
-                                />
-                                <p id="imageHelp" className="text-gray-500 text-sm">
-                                    Accepted formats: jpg, jpeg, png, webp
-                                </p>
-                            </div>
-
-
-                            <div className="flex flex-col gap-2 w-full">
-                                <label htmlFor="title">Title</label>
-                                <input
-                                id="title"
-                                name="title"
-                                ref={titleRef}
-                                placeholder="Title"
-                                className="w-full border rounded-lg px-4 py-2 focus:outline-primary"
-                                />
-                            </div>
-
-                            <div className="flex flex-col gap-2 w-full">
-                                <label htmlFor="description">Description</label>
-                                <textarea
-                                id="description"
-                                name="description"
-                                ref={descriptionRef}
-                                placeholder="Description"
-                                className="w-full border rounded-lg px-4 py-2 focus:outline-primary"
-                                />
-                            </div>
-
-                            <div className="flex flex-col gap-2 w-full">
-                                <label htmlFor="content">Content</label>
-                                <textarea
-                                id="content"
-                                name="content"
-                                ref={contentRef}
-                                placeholder="Content"
-                                className="w-full border rounded-lg px-4 py-2 focus:outline-primary"
-                                />
-                            </div>
-
-                            <div className="flex items-center gap-2">
-                                <input
-                                    id="published"
-                                    name="published"
-                                    type="checkbox"
-                                    ref={publishedRef}
-                                    defaultChecked={true}
-                                />
-                                <label htmlFor="published">Published</label>
-                            </div>
-
-                            {errors && (
-                                <div className="text-red-700">
-                                {Object.keys(errors).map((key) => (
-                                    <p key={key}>{errors[key][0]}</p>
-                                ))}
-                                </div>
-                            )}
-
-                            <PrimaryButton className="btn-add" type="submit">
-                                Create
-                            </PrimaryButton>
-                        </form>
-                    )}
+        <form
+            className="max-w-full flex flex-col items-start gap-5"
+            onSubmit={handleSubmit}
+        >
+            <div className="flex flex-col gap-2 w-full">
+                {initialValues.image && (
+                    <div className="mb-4">
+                        <p className="mb-2">Current image:</p>
+                        <div className="">
+                            <img src={initialValues.image} alt="Current image" className=" rounded-lg aspect-video object-cover max-w-80 w-full" />
+                        </div>
                     </div>
+                )}
+                <label htmlFor="imageUpload">Upload new image</label>
+                <div
+                    id="imageUpload"
+                    className="w-full border-2 border-dashed rounded-lg p-6 flex flex-col items-center justify-center cursor-pointer hover:bg-gray-100"
+                    onDrop={handleFileSelect}
+                    onDragOver={(e) => e.preventDefault()}
+                    onClick={() => document.getElementById("fileInput").click()}
+                    aria-describedby="imageHelp"
+                >
+                    {preview ? (
+                        <img src={preview} alt="Preview" className=" max-w-80 w-full aspect-video object-cover rounded-lg" />
+                    ) : (
+                        <p className="text-gray-500">Drag & Drop an image or click to upload</p>
+                    )}
                 </div>
+                <input
+                    type="file"
+                    id="fileInput"
+                    className="hidden"
+                    accept="image/jpg, image/png, image/jpeg, image/webp"
+                    onChange={handleFileSelect}
+                />
+                <p id="imageHelp" className="text-gray-500 text-sm">
+                    Accepted formats: jpg, jpeg, png, webp
+                </p>
             </div>
-        </div>
+
+            <div className="flex flex-col gap-2 w-full">
+                <label htmlFor="title">Title</label>
+                <input
+                    id="title"
+                    name="title"
+                    defaultValue={postData.title || ""}
+                    onBlur={handleBlur}
+                    placeholder="Title"
+                    className="w-full border rounded-lg px-4 py-2 focus:outline-primary"
+                />
+            </div>
+
+            <div className="flex flex-col gap-2 w-full">
+                <label htmlFor="description">Description</label>
+                <textarea
+                    id="description"
+                    name="description"
+                    defaultValue={postData.description || ""}
+                    onBlur={handleBlur}
+                    placeholder="Description"
+                    className="w-full border rounded-lg px-4 py-2 focus:outline-primary"
+                />
+            </div>
+
+            <div className="flex flex-col gap-2 w-full">
+                <label htmlFor="content">Content</label>
+                <textarea
+                id="content"
+                name="content"
+                defaultValue={postData.content || ""}
+                onBlur={handleBlur}
+                placeholder="Content"
+                className="w-full border rounded-lg px-4 py-2 focus:outline-primary"
+                />
+            </div>
+
+            {/* <div className="flex items-center gap-2">
+                <input
+                    id="published"
+                    name="published"
+                    defaultValue={postData.published || true}
+                    onChange={ev => setPostData({...postData, published: ev.target.checked})}
+                    type="checkbox"
+                    defaultChecked={true}
+                />
+                <label htmlFor="published">Published</label>
+            </div> */}
+            <PrimaryButton className="btn-add" type="submit">
+                Save
+            </PrimaryButton>
+        </form>
     );
 };
 

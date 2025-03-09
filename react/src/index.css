@@ -25,7 +25,7 @@
     :root{
       --color-primary: 27 25 75; /* #1B194B */
       --color-secondary: 52 55 230; /* #3437E6 */
-      --color-light1: 243 243 246; /* #F3F3F6 */
+      --color-light1: 245 245 254; /* #F5F5FE */
       --color-border1: rgb(22, 6, 74, .3);
     }
 }
