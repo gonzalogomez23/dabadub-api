@@ -27,6 +27,7 @@ class StorePostRequest extends FormRequest
             'content' => ['required', 'string'],
             'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:4096'],
             'published' => ['nullable', 'boolean'],
+            'category_id' => ['nullable', 'integer', 'exists:categories,id'],
         ];
     }
 

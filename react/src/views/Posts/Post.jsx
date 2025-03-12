@@ -71,9 +71,11 @@ const Post = () => {
                 )}
                 <div className="w-full max-w-4xl mx-auto flex flex-col gap-6 p-12">
                     {post.category &&
-                        <span className="flex w-fit rounded-full items-center justify-center text-sm text-primary bg-secondary/10 font-headings px-3 py-1">
-                            {post.category.title}
-                        </span>
+                        <div className="flex">
+                            <span className="flex w-fit rounded-full items-center justify-center text-primary text-sm font-headings bg-secondary/10 px-3 py-1">
+                                {post.category.title}
+                            </span>
+                        </div>
                     }
                     <h2 className="font-headings text-primary text-4xl font-medium">{post.title}</h2>
                     <p className="text-2xl font-serif text-zinc-700">{post.description}</p>
@@ -98,7 +100,7 @@ const Post = () => {
                         <PrimaryButton variant="secondary" onClick={() => setIsDeleting(false)}>
                             No
                         </PrimaryButton>
-                        <PrimaryButton onClick={() => onDelete(post)} className="bg-red-600 text-white hover:bg-red-500">
+                        <PrimaryButton onClick={() => onDelete(post)} variant="danger">
                             Yes, delete
                             <TrashIcon className='size-4' />
                         </PrimaryButton>

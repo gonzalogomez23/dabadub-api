@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\Post;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PostResource;
 use App\Http\Resources\PostCollection;
@@ -22,17 +23,15 @@ class PostController extends Controller
     {
         $categorySlug = $request->query('category_slug');
         $posts = Post::query()
-            // ->with('category')
+            ->with('category')
             ->when($categorySlug, function ($query, $categorySlug) {
                 $query->whereHas('category', function ($q) use ($categorySlug) {
                     $q->where('slug', $categorySlug);
                 });
             })
             ->get();
-            $posts = new PostCollection($posts);
-            // $posts = PostResource::collection($posts);
-            // dd($posts);
-        return $posts;
+
+        return PostResource::collection($posts);
     }
 
     
@@ -83,8 +82,8 @@ class PostController extends Controller
     {
 
         $data = $request->validated();
-
         try {
+
             if ($request->hasFile('image')) {
                 if ($post->image) {
                     Storage::disk('public')->delete($post->image);

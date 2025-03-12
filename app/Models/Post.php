@@ -10,13 +10,6 @@ class Post extends Model
 {
     use HasFactory;
 
-    // protected static function booted()
-    // {
-    //     static::creating(function ($post) {
-    //         $post->slug = Str::slug($post->title);
-    //     });
-    // }
-
     /**
      * The attributes that are mass assignable.
      *
@@ -29,12 +22,13 @@ class Post extends Model
         'content',
         'image',
         'published',
+        'category_id',
     ];
 
-    // public function category()
-    // {
-    //     return $this->belongsTo(Category::class);
-    // }
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 
     public function getRouteKeyName()
     {

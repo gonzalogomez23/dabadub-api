@@ -25,7 +25,7 @@ const DropdownMenu = ({ label, buttonIcon, children }) => {
 
 
   return (
-    <div className={`p-2 relative`}  ref={dropdownRef}>
+    <div className="p-2 relative"  ref={dropdownRef}>
         <button
             // type="submit"
             className="flex items-center gap-2 px-2 py-1"

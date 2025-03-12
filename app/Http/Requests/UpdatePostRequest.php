@@ -20,15 +20,16 @@ class UpdatePostRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
+    
     public function rules(): array
     {
         return [
-            // 'title' => ['required', 'string', 'max:255', 'unique:posts,title,' . $this->slug],
             'title' => [ 'required', 'string', 'max:255', Rule::unique('posts', 'title')->ignore($this->route('post')->id)],
             'description' => ['required', 'string', 'max:500'],
             'content' => ['required', 'string'],
             'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:4096'],
             'published' => ['nullable', 'boolean'],
+            'category_id' => ['nullable', 'integer', 'exists:categories,id'],
         ];
     }
 

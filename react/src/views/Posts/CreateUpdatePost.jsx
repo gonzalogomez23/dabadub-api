@@ -15,6 +15,7 @@ const CreateUpdatePost = () => {
     const [errors, setErrors] = useState(null);
     
     const [post, setPost] = useState({});
+    const [categories, setCategories] = useState([]);
 
     useEffect(() => {
         if (!isUpdateMode) return;
@@ -34,14 +35,10 @@ const CreateUpdatePost = () => {
     
     
     const onSubmit = (data) => {
-
         setErrors(null);
         setLoading(true);
 
-        axiosClient.post(
-            isUpdateMode ? `/posts/${slug}` :  "/posts",
-            data
-        )
+        axiosClient.post(isUpdateMode ? `/posts/${slug}` :  "/posts", data)
             .then(() => {
                 setNotification(isUpdateMode ? "Post updated successfully" : "Post created successfully");
                 navigate("/posts");
@@ -56,6 +53,17 @@ const CreateUpdatePost = () => {
             })
             .finally(() => setLoading(false));
     };
+
+
+    useEffect(() => {
+        axiosClient.get(`/categories`)
+            .then(({ data }) => {
+                setCategories(data?.categories)
+            })
+            .catch(({error}) => {
+                setErrors(error.response?.data?.errors || "Unknown error");
+            })
+    }, []);
     
 
     return (
@@ -73,6 +81,7 @@ const CreateUpdatePost = () => {
                                 initialValues={post}
                                 onSubmit={onSubmit}
                                 isUpdateMode={isUpdateMode}
+                                categories={categories}
                             />
                         )}
                         {errors && (
