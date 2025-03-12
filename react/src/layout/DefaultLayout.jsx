@@ -52,7 +52,7 @@ export default function DefaultLayout() {
                                     <UserCircleIcon className="size-6"/>
                                 )}
                             >
-                                <DropdownMenu.Item>
+                                <DropdownMenu.Item className="opacity-50 hover:bg-transparent cursor-default">
                                     <UserIcon className="size-6"/>
                                     My profile
                                 </DropdownMenu.Item>

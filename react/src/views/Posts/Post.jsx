@@ -11,7 +11,7 @@ const Post = () => {
     const {slug} = useParams()
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate();
-    const {setNotification} = useStateContext()
+    const {token, setNotification} = useStateContext()
     const [isDeleting, setIsDeleting] = useState(false)
 
     const [post, setPost] = useState(null);
@@ -82,31 +82,33 @@ const Post = () => {
                     <hr />
                     <p>{post.content}</p>
                 </div>
-                <div className="absolute flex right-0 top-0 p-8 gap-4 items-center">
-                    <PrimaryButton  to={`/update-post/${post.slug}`}  variant="secondary">
-                        Edit post
-                        <PencilIcon className='size-4' />
-                    </PrimaryButton>
-                    <PrimaryButton onClick={() => setIsDeleting(true)}  variant="danger">
-                        Delete
-                        <TrashIcon className='size-4' />
-                    </PrimaryButton>
-                </div>
+                {token &&
+                    <div className="absolute flex right-0 top-0 p-8 gap-4 items-center">
+                        <PrimaryButton  to={`/update-post/${post.slug}`}  variant="secondary">
+                            Edit post
+                            <PencilIcon className='size-4' />
+                        </PrimaryButton>
+                        <PrimaryButton onClick={() => setIsDeleting(true)}  variant="danger">
+                            Delete
+                            <TrashIcon className='size-4' />
+                        </PrimaryButton>
+                    </div>
+                }
             </div>
-            {isDeleting && (
+            {token && isDeleting && 
                 <Modal>
                     <p className="text-lg">Are you sure you want to delete this post?</p>
                     <div className="flex justify-center gap-4">
                         <PrimaryButton variant="secondary" onClick={() => setIsDeleting(false)}>
                             No
                         </PrimaryButton>
-                        <PrimaryButton onClick={() => onDelete(post)} variant="danger">
+                        <PrimaryButton onClick={() => onDelete(post)} className="bg-red-600 text-white hover:!bg-red-500">
                             Yes, delete
                             <TrashIcon className='size-4' />
                         </PrimaryButton>
                     </div>
                 </Modal>
-            )}
+            }
         </>
     )
 }

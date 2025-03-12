@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
 import axiosClient from "../../axios-client";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 import PrimaryButton from "components/PrimaryButton";
 import { useStateContext } from "contexts/ContextProvider";
 import PostFormNew from "views/Posts/PostFormNew";
@@ -10,12 +10,16 @@ const CreateUpdatePost = () => {
     const { slug } = useParams();
     const isUpdateMode = !!slug;
     const navigate = useNavigate();
-    const { setNotification } = useStateContext();
+    const { token, setNotification } = useStateContext();
     const [loading, setLoading] = useState(false);
     const [errors, setErrors] = useState(null);
     
     const [post, setPost] = useState({});
     const [categories, setCategories] = useState([]);
+
+    if (!token) {
+        return <Navigate to="/"/>
+    }
 
     useEffect(() => {
         if (!isUpdateMode) return;

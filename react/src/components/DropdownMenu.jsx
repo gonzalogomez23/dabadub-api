@@ -57,9 +57,9 @@ const DropdownMenu = ({ label, buttonIcon, children }) => {
   )
 }
 
-DropdownMenu.Item = ({children, parentMethod}) => {
+DropdownMenu.Item = ({children, className = '', parentMethod, ...props }) => {
     return (
-        <a href="#" onClick={parentMethod} className="w-full flex gap-2 items-center hover:bg-gray-200/60 rounded p-2">
+        <a href="#" onClick={parentMethod} className={`${className} w-full flex gap-2 items-center hover:bg-gray-200/60 rounded p-2`} {...props}>
             {children}
         </a>
     )
