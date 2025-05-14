@@ -24,7 +24,13 @@ This project is a **blog-style website** where users can read and explore variou
 
 ## 🔧 Installation
 
-### 1️⃣ Install Frontend Dependencies
+### 1️⃣ Install Backend Dependencies
+
+```sh
+composer install
+```
+
+### 2️⃣ Install Frontend Dependencies
 
 ```sh
 cd react
@@ -32,18 +38,9 @@ npm install  # or pnpm install / yarn install
 ```
 
 Run the frontend development server:
-
 ```sh
 npm run dev
 ```
-
-### 2️⃣ Install Backend Dependencies
-
-```sh
-cd backend
-composer install
-```
-
 ### 3️⃣ Setup Environment & Database
 
 Duplicate the `.env.example` file in the backend directory and configure your database settings.
