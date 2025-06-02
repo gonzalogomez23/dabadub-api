@@ -43,13 +43,14 @@ export default function Login() {
     }
 
     return (
-        <div className="flex bg-white bg-gradient-to-br from-light1 to-transparent min-h-screen w-full flex-col items-center justify-center gap-8 p-4">
-            <LogoDabadub className="w-24"/>
-            <form className="max-w-full flex flex-col items-start bg-white/60 border border-border1 shadow-sm rounded-xl gap-4 py-6 px-4 lg:p-8" action="" onSubmit={handleSubmit}>
+        <div className="relative flex bg-secondary/25 min-h-screen w-full flex-col items-center justify-center gap-8 p-4"> {/* bg-gradient-to-br from-light1 to-transparent */}
+            <div className="absolute left-[50%] top-[40%] translate-x-[-50%] translate-y-[-50%] w-96 h-96 rounded-full bg-white blur-3xl opacity-60 z-0"></div>
+            <LogoDabadub className="w-24 relative z-10"/>
+            <form className="relative z-10 max-w-full flex flex-col items-start bg-white/30 border border-border1 shadow-sm rounded-xl gap-4 py-6 px-4 lg:p-8" action="" onSubmit={handleSubmit}>
                 <h1 className="title">Login into your account</h1>
                 
-                <input className="w-96 max-w-full border rounded-lg px-4 py-2 focus:outline-primary" ref={emailRef} type="email" placeholder="Email"/>
-                <input className="w-96 max-w-full border rounded-lg px-4 py-2 focus:outline-primary" ref={passwordRef} type="password" placeholder="Password"/>
+                <input className="bg-white/40 w-96 max-w-full border rounded-lg px-4 py-2 focus:outline-primary" ref={emailRef} type="email" placeholder="Email"/>
+                <input className="bg-white/40 w-96 max-w-full border rounded-lg px-4 py-2 focus:outline-primary" ref={passwordRef} type="password" placeholder="Password"/>
                 {errors && <ul className="text-red-700">
                     {Object.keys(errors).map(key => (
                         <li key={key}>{errors[key][0]}</li>

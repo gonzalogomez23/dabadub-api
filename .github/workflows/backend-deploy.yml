@@ -18,34 +18,9 @@ jobs:
     deploy:
       runs-on: ubuntu-latest
       steps:
-        # - name: PHP Setup
-        #   uses: shivammathur/setup-php@v2
-        #   with:
-        #     php-version: '8.2'
   
         - name: Checkout Repository
           uses: actions/checkout@v2
-  
-        # - name: Node Setup
-        #   uses: actions/setup-node@v3
-        #   with:
-        #     node-version: 16
-  
-        # - name: MySQL Setup
-        #   uses: mirromutth/mysql-action@v1.1
-        #   with:
-        #     mysql database: laravel-test-database
-        #     mysql user: laravel_test_user
-        #     mysql password: example
-  
-        # - name: Copy .env
-        #   run: cp .env.example .env
-        
-        # - name: Install Composer Dependencies
-        #   run: composer.phar install -q --no-ansi --no-interaction --no-scripts--no-progress --prefer-dist
-
-        # - name: Install node dependencies
-        #   run: npm ci
   
         - name: Directory Permissions
           run: chmod -R 777 storage bootstrap/cache

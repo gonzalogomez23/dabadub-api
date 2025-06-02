@@ -23,9 +23,11 @@
     }
     
     :root{
-      --color-primary: 27 25 75; /* #1B194B */
-      --color-secondary: 52 55 230; /* #3437E6 */
-      --color-light1: 245 245 254; /* #F5F5FE */
-      --color-border1: rgb(22, 6, 74, .3);
+      /* --color-primary: 27 25 75; #1B194B  */
+      --color-primary: 0 87 48; /* #005730 */ 
+      /* --color-secondary: 52 55 230; #3437E6 */
+      --color-secondary: 5 113 48; /* #00752F */
+      --color-light1: 232 255 239; /* #F5F5FE */
+      --color-border1: rgba(0, 87, 48, 0.3);
     }
 }
