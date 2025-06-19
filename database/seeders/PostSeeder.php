@@ -67,16 +67,6 @@ class PostSeeder extends Seeder
                 'updated_at' => now(),
                 'category_id' => 3, // Arts & Design
             ],
-            /* [
-                'title' => 'Investment Strategies for Beginners',
-                'slug' => Str::slug('Investment Strategies for Beginners'),
-                'description' => 'A guide to getting started with smart investments.',
-                'content' => 'Understanding risk, diversification, and long-term planning are key to successful investing. Learn the basics of financial growth.',
-                'published' => true,
-                'created_at' => now(),
-                'updated_at' => now(),
-                'category_id' => 4, // Finance and Investment
-            ], */
             [
                 'title' => 'The Role of Mental Health in Workplace Productivity',
                 'slug' => Str::slug('The Role of Mental Health in Workplace Productivity'),
@@ -87,16 +77,6 @@ class PostSeeder extends Seeder
                 'updated_at' => now(),
                 'category_id' => 6, // Psychology
             ],
-            /* [
-                'title' => 'How a Healthy Diet Can Boost Your Energy Levels',
-                'slug' => Str::slug('How a Healthy Diet Can Boost Your Energy Levels'),
-                'description' => 'The connection between nutrition and productivity.',
-                'content' => 'Eating the right foods can improve concentration and stamina. Discover which nutrients are essential for sustained energy throughout the day.',
-                'published' => true,
-                'created_at' => now(),
-                'updated_at' => now(),
-                'category_id' => 7, // Health
-            ], */
         ]);
         
     }

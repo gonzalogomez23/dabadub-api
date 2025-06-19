@@ -21,7 +21,6 @@ class PostResource extends JsonResource
             'title' => $this->title,
             'description' => $this->description,
             'content' => $this->content,
-            // 'published' => $this->published,
             'image' => $this->image ? asset('storage/' . $this->image) : null,
             'category' => $this->category ? [
                 'id' => $this->category->id,
