@@ -1,17 +1,13 @@
-name: Deploy Laravel Backend
+name: Deploy Dabadub backend (API) to Production
 
 # Trigger the workflow on push and pull request events on the production branch
 on:
     push:
       branches:
         - main
-      paths-ignore:
-        - 'react/**'
     pull_request:
       branches:
         - main
-      paths-ignore:
-        - 'react/**' 
 
 # Authenticate to the the server via ssh and run our deployment script 
 jobs:
