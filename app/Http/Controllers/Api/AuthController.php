@@ -4,50 +4,52 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Http\Requests\LoginRequest;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SignupRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    public function signup(SignupRequest $request) {
-        $data = $request->validated();
+    public function signup(SignupRequest $request)
+    {
         $user = User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password'])
+            'name'     => $request->name,
+            'email'    => $request->email,
+            'password' => Hash::make($request->password),
         ]);
 
-        $token = $user->createToken('main')->plainTextToken;
+        $token = Auth::login($user);
 
-        /* return response([
-            'user' => $user,
-            'token' => $token,
-        ]); */
-        //Simplificado:
-        return response(compact('user', 'token'));
+        return response()->json([
+            'access_token' => $token,
+            'user'         => $user,
+        ]);
     }
-    
-    public function login(LoginRequest $request) {
-        $credentials = $request->validated();
-        if (!Auth::attempt($credentials)) {
-            return response([
-                'message' => 'Provided email address or password is incorrect'
-            ], 422);
+
+    public function login(LoginRequest $request)
+    {
+        $credentials = $request->only('email', 'password');
+
+        if (!$token = Auth::attempt($credentials)) {
+            return response()->json(['error' => 'Credenciales inválidas'], 401);
         }
 
-        /** @var User $user */
-        $user = Auth::user();
-        $token = $user->createToken('main')->plainTextToken;
-        return response(compact('user', 'token'));
+        return response()->json([
+            'access_token' => $token,
+            'token_type'   => 'bearer',
+            'expires_in'   => JWTAuth::factory()->getTTL() * 60,
+            'user'         => auth()->user(),
+        ]);
     }
 
-    public function logout(Request $request) {
-        /** @var User $user */
-        $user = $request->user();
-        $user->currentAccessToken()->delete();
-        return response('', 204);
-    }
+    public function logout()
+    {
+        Auth::logout();
 
+        return response()->json(['message' => 'Sesión cerrada correctamente']);
+    }
 }
