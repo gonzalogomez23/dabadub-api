@@ -3,10 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\User;
-use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Http\Requests\LoginRequest;
-use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SignupRequest;
 use Illuminate\Support\Facades\Auth;
@@ -40,16 +38,17 @@ class AuthController extends Controller
 
         return response()->json([
             'access_token' => $token,
-            'token_type'   => 'bearer',
-            'expires_in'   => JWTAuth::factory()->getTTL() * 60,
+            // 'token_type'   => 'bearer',
+            // 'expires_in'   => JWTAuth::factory()->getTTL() * 60,
             'user'         => auth()->user(),
         ]);
     }
 
     public function logout()
     {
-        Auth::logout();
+        // Auth::logout();
+        JWTAuth::invalidate(JWTAuth::getToken());
 
-        return response()->json(['message' => 'Sesión cerrada correctamente']);
+        return response()->json(['message' => 'Session closed successfully']);
     }
 }
