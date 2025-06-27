@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\User;
+use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Http\Requests\LoginRequest;
 use App\Http\Controllers\Controller;
@@ -33,13 +34,17 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (!$token = Auth::attempt($credentials)) {
-            return response()->json(['error' => 'Credenciales inválidas'], 401);
+            return response()->json([
+                'errors' => [
+                    'general' => ['Email or password is incorrect']
+                ]
+            ], 401);
         }
 
         return response()->json([
             'access_token' => $token,
             // 'token_type'   => 'bearer',
-            // 'expires_in'   => JWTAuth::factory()->getTTL() * 60,
+            // 'expires_in'   => Auth::factory()->getTTL() * 60,
             'user'         => auth()->user(),
         ]);
     }
