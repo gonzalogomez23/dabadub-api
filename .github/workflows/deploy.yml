@@ -37,7 +37,8 @@ jobs:
             git clean -f -d
 
             echo "Installing composer dependencies..."
-            composer install --no-interaction --prefer-dist --optimize-autoloader --no-dev
+            php composer.phar install --no-interaction --prefer-dist --optimize-autoloader --no-dev
+
 
             echo "Running database migrations..."
             php artisan migrate --force
