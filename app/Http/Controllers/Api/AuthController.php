@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Http\Requests\LoginRequest;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SignupRequest;
 use Illuminate\Support\Facades\Auth;
@@ -21,19 +22,22 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        $token = Auth::login($user);
+        $token = Auth::guard('api')->login($user);
 
         return response()->json([
+            'message' => 'Signup successful',
             'access_token' => $token,
-            'user'         => $user,
+            'user' => $user,
         ]);
     }
 
     public function login(LoginRequest $request)
     {
         $credentials = $request->only('email', 'password');
+        Log::info('Credentials received:', $credentials);
 
-        if (!$token = Auth::attempt($credentials)) {
+        if (!$token = Auth::guard('api')->attempt($credentials)) {
+            Log::info('Auth attempt failed.', $credentials);
             return response()->json([
                 'errors' => [
                     'general' => ['Email or password is incorrect']
@@ -41,19 +45,18 @@ class AuthController extends Controller
             ], 401);
         }
 
+        Log::info('Token generated:', [$token]);
+
         return response()->json([
+            'message' => 'Login successful',
             'access_token' => $token,
-            // 'token_type'   => 'bearer',
-            // 'expires_in'   => Auth::factory()->getTTL() * 60,
-            'user'         => auth()->user(),
+            'user' => auth('api')->user(),
         ]);
     }
 
     public function logout()
     {
-        // Auth::logout();
-        JWTAuth::invalidate(JWTAuth::getToken());
-
-        return response()->json(['message' => 'Session closed successfully']);
+        auth()->logout();
+        return response()->json(['message' => 'Logged out successfully']);
     }
 }

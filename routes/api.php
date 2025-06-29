@@ -24,19 +24,10 @@ Route::post('/signup', [AuthController::class, 'signup']);
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::middleware('auth:api')->group(function () {
-    // Route::get('/user', function (Request $request) {
-    //     return $request->user();
-    // });
-    Route::get('/user', function () {
-        return response()->json(auth()->user());
+    Route::get('/user', function (Request $request) {
+        return $request->user();
     });
     Route::post('/logout', [AuthController::class, 'logout']);
-
-    // Route::apiResource('/users', UserController::class);
-
-    // Route::post('/posts', [PostController::class, 'store']);
-    // Route::put('/posts/{post}', [PostController::class, 'update']);
-    // Route::delete('/posts/{post}', [PostController::class, 'destroy']);
 });
 
 Route::apiResource('/posts', PostController::class)->only(['index', 'show']);
