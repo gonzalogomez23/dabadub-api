@@ -28,8 +28,11 @@ Route::middleware('auth:api')->group(function () {
         return $request->user();
     });
     Route::post('/logout', [AuthController::class, 'logout']);
+    Route::apiResource('/posts', PostController::class)->only(['store', 'destroy']);
+    Route::delete('/posts/{post}', [PostController::class, 'destroy']);
+    Route::put('/posts/{slug}', [PostController::class, 'update']);
 });
 
-Route::apiResource('/posts', PostController::class)->only(['index', 'show']);
+Route::apiResource('/posts', PostController::class)->only('show', 'index');
 
 Route::apiResource('/categories', CategoryController::class);

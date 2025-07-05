@@ -76,12 +76,19 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePostRequest $request, Post $post)
+    public function update(UpdatePostRequest $request, $slug)
     {
+        $post = Post::where('slug', $slug)->first();
+
+        if (!$post) {
+            return response()->json([
+                'message' => 'Post not found.'
+            ], 404);
+        }
 
         $data = $request->validated();
-        try {
 
+        try {
             if ($request->hasFile('image')) {
                 if ($post->image) {
                     Storage::disk('public')->delete($post->image);
@@ -100,6 +107,7 @@ class PostController extends Controller
                 'message' => 'Post updated successfully.',
                 'data' => $post,
             ], 200);
+
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Failed to update post.',
@@ -108,12 +116,21 @@ class PostController extends Controller
         }
     }
 
+
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Post $post)
+    public function destroy($slug)
     {
         try {
+            $post = Post::where('slug', $slug)->first();
+
+            if (!$post) {
+                return response()->json([
+                    'message' => 'Post not found.'
+                ], 404);
+            }
+
             if ($post->image) {
                 Storage::disk('public')->delete($post->image);
             }
