@@ -22,9 +22,9 @@ class StorePostRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => ['required', 'string', 'max:255', 'unique:posts,title'],
-            'description' => ['required', 'string', 'max:500'],
-            'content' => ['required', 'string'],
+            'title' => ['required', 'string', 'min:3', 'max:255', 'unique:posts,title'],
+            'description' => ['required', 'string', 'min:3', 'max:500'],
+            'content' => ['required', 'string', 'min:3'],
             'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:4096'],
             'published' => ['nullable', 'boolean'],
             'category_id' => ['nullable', 'integer', 'exists:categories,id'],
@@ -44,8 +44,13 @@ class StorePostRequest extends FormRequest
     // Convert checkbox values before validation.
     protected function prepareForValidation()
     {
-        $this->merge([
-            'published' => filter_var($this->published, FILTER_VALIDATE_BOOLEAN),
-        ]);
+        // $this->merge([
+        //     'published' => filter_var($this->published, FILTER_VALIDATE_BOOLEAN),
+        // ]);
+        if ($this->has('category_id') && $this->input('category_id') === '0') {
+            $this->merge([
+                'category_id' => null,
+            ]);
+        };
     }
 }
