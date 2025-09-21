@@ -1,58 +1,21 @@
-# 📝 Blog Platform - React & Laravel API
+# Dabadub API: Backend for the Blog Application
 
-This project is a **blog-style website** where users can read and explore various articles. The **frontend** is built with **React**, ensuring a fast and dynamic user experience, while the **backend** is powered by **Laravel**, serving as an API to manage articles and user interactions.
+A RESTful API built with Laravel to power the Dabadub full-stack blog application.
+It provides endpoints for user authentication and blog post management, supporting a modern frontend with secure and scalable backend services.
 
-## 🚀 Features
+## 🚀 Key Features
 
-- 📰 **Article Management** – Users can browse through different categories of articles.
-- 🌐 **API-Driven** – Laravel serves as a RESTful API that enables full CRUD functionality, allowing users to create, retrieve, update, and delete articles.
-- 🎨 **Modern UI** – Built with a responsive and visually appealing design using **Tailwind CSS**.
-- 🔐 **Authentication** – User login and signup functionality.
+- **User Authentication**: Secure registration, login, and logout  
+- **CRUD Operations**: Endpoints to create, read, update, and delete blog posts  
+- **RESTful Design**: Clean, consistent, and easy-to-consume API structure  
+- **Database Integration**: Persistent storage using relational database  
 
-## 🛠️ Technologies Used
+## 🛠️ Tech Stack
 
-### Frontend
-- ⚛ **React** (Client-side rendering & dynamic UI)
-- 🎨 **Tailwind CSS** (Modern styling)
-- ⚡ **Vite** (For fast development)
+This API was built with the following technologies:
 
-### Backend
-- 🛠 **Laravel** (REST API development)
-- 📦 **MySQL / SQLite** (Database management)
+- **Laravel 11** – PHP framework for building robust backend services  
+- **MySQL** – Relational database for storing users and posts  
 
----
-
-## 🔧 Installation
-
-### 1️⃣ Install Backend Dependencies
-
-```sh
-composer install
-```
-
-### 2️⃣ Install Frontend Dependencies
-
-```sh
-cd react
-npm install  # or pnpm install / yarn install
-```
-
-Run the frontend development server:
-```sh
-npm run dev
-```
-### 3️⃣ Setup Environment & Database
-
-Duplicate the `.env.example` file in the backend directory and configure your database settings.
-
-Run migrations:
-
-```sh
-php artisan migrate --seed
-```
-
-Run Laravel’s local development server:
-
-```sh
-php artisan serve
-```
+**Author**  
+Gonzalo Gómez - [GitHub](https://github.com/gonzalogomez23) | [LinkedIn](https://www.linkedin.com/in/gonzalo-gomez-martinez/)
